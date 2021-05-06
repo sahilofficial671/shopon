@@ -1,0 +1,36 @@
+<div class="col-md-4 offsrt-md-4">
+  <div class="auth-container">
+    <form name="admin-auth" #tf="ngForm" (ngSubmit)="tf.form.valid && submit()" novalidate>
+
+      <div class="form-group">
+        <label for="username">Email</label>
+        <input type="text" id="username" name="username" class="form-control" required minlength="4" [(ngModel)]="credentials.username" #name="ngModel" #username="ngModel" required email>
+
+        <div *ngIf="tf.submitted && username.invalid" class="invalid-feedback">
+          <div *ngIf="username.errors.required">Email is required</div>
+          <div *ngIf="username.errors.email">Email must be a valid email address</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="username">Password</label>
+        <input type="text" id="password" name="password" class="form-control" required minlength="4" appForbiddenName="bob" [(ngModel)]="credentials.password" #password="ngModel" required>
+
+        <div *ngIf="tf.submitted && password.invalid" class="invalid-feedback">
+          <div *ngIf="password.errors.required || password.errors.minlength">Password must be at least 8 characters</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Login</button>
+      </div>
+    </form>
+
+  </div>
+
+  <div (click)="display()">
+    Show:
+    <p>{{credentials.username}}</p>
+    <p>{{credentials.password}}</p>
+  </div>
+</div>
