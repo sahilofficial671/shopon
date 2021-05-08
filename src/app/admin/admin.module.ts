@@ -1,23 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthComponent } from './auth/auth.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
+import { AdminAuthModule } from './admin-auth/admin-auth.module';
+import { FormsModule } from '@angular/forms';
+import { MaterialModule } from '../Modules/material/material.module';
+import { AdminCommonModule } from './admin-common/admin-common.module';
 
 @NgModule({
   declarations: [
-    AuthComponent
-  ],
 
+  ],
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    MaterialModule,
+
+    AdminAuthModule,
+    AdminCommonModule,
   ],
-  exports: [
-    AuthComponent
+  exports:[
+    AdminAuthModule,
+    AdminCommonModule,
   ]
 })
-
 export class AdminModule { }

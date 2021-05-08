@@ -68,7 +68,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatBadgeModule
+    MatBadgeModule,
   ],
   exports: [
     MatButtonModule,

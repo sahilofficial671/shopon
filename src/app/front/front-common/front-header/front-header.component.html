@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1>Shopon</h1>
+    <span class="menu-spacer"></span>
+    <div>
+      <a mat-button [routerLink]="link.url" *ngFor="let link of links"> {{link.name}} </a>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
