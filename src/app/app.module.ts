@@ -5,9 +5,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './Modules/material/material.module';
-import { AdminModule } from './admin/admin.module';
-import { FrontModule } from './front/front.module';
+import { MaterialModule } from 'src/app/shared/modules/material/material.module';
+import { AdminModule } from './modules/admin/admin.module';
+import { FrontModule } from './modules/front/front.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -20,15 +22,19 @@ import { FrontModule } from './front/front.module';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     MaterialModule,
+
     FrontModule,
     AdminModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
   exports: [
     AppRoutingModule,
     MaterialModule,
+
     FrontModule,
     AdminModule,
   ]
