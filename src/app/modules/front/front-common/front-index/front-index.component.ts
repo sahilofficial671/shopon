@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-front-index',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FrontIndexComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  isAdmin():boolean{
+    if(this.router.url.startsWith("admin")){
+      return true;
+    }
+    return false;
   }
 
 }

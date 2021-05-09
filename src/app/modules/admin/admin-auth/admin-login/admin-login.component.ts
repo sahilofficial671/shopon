@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -13,18 +13,22 @@ export class AdminLoginComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private authService: AuthService,
     private toastr: ToastrService
   ) {
   }
 
   ngOnInit(): void {
+      // get return url from route parameters or default to '/'
+      this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
   }
 
   isSubmitted:boolean = false;
   errors:any = [];
   email:string;
   password:string;
+  returnUrl: string;
 
   form:FormGroup = new FormGroup({
     email: new FormControl('', [
@@ -63,16 +67,12 @@ export class AdminLoginComponent implements OnInit {
         this.authService
         .adminLogin({email: this.email, password: this.password})
         .subscribe(async data => {
-          console.log(data);
-          if(data.status == 'success' && data.message != null){
-            this.toastr.success(data.message)
-            sessionStorage.setItem("user_session_id", data.user.id);
-            sessionStorage.setItem("user", JSON.stringify(data.user));
-            sessionStorage.setItem("roles", JSON.stringify(data.user.roles));
+          console.log(JSON.stringify(data));
+          if(data.status == 'success' && data.message != null && data.user){
+            this.authService.mapUsertoLocalStorage(data.user);
+            this.toastr.success(data.message);
             resolve(data);
           }
-
-          // this.router.navigateByUrl('/admin-dashboard');
         }, err => {
           (err.status == 'error' && err.message != null)
           ? this.toastr.error(err.message)
@@ -81,9 +81,11 @@ export class AdminLoginComponent implements OnInit {
           reject(err);
         });
       }).then(()=>{
-        console.log(sessionStorage.getItem("user_session_id"))
-        console.log(JSON.parse(sessionStorage.getItem("user")))
-        console.log(JSON.parse(sessionStorage.getItem("roles")))
+        console.log(JSON.parse(localStorage.getItem("user")))
+
+        this.returnUrl
+        ? this.router.navigate([this.returnUrl])
+        : this.router.navigate(["/admin/dashboard"])
       })
     }
   }

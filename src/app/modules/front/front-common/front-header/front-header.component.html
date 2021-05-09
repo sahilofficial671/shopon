@@ -3,10 +3,18 @@
     <button mat-icon-button>
       <mat-icon>menu</mat-icon>
     </button>
-    <h1>Shopon</h1>
+    <a mat-button [routerLink]="'/'"><h1>Shopon</h1></a>
     <span class="menu-spacer"></span>
-    <div>
+    <div *ngIf="!isAdmin()">
       <a mat-button [routerLink]="link.url" *ngFor="let link of links"> {{link.name}} </a>
+    </div>
+    <div *ngIf="isAdmin() && adminLoggedIn()">
+      <a mat-button [routerLink]="link.url" *ngFor="let link of adminLinks" > {{link.name}} </a>
+    </div>
+    <div class="header-right">
+      <a mat-button [routerLink]="'admin/login'" *ngIf="!isAdmin() && !adminLoggedIn()">Admin</a>
+      <a mat-button [routerLink]="'admin/login'" *ngIf="!isAdmin() && adminLoggedIn()">Admin Dashboard</a>
+      <a mat-button *ngIf="isAdmin() && adminLoggedIn()" (click)="adminLogout()">Logout</a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

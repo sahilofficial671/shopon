@@ -24,7 +24,9 @@ export class AdminAuthGuard implements CanActivate {
         return true;
       }
 
-      this.router.navigateByUrl('admin/login');
+      this.router.navigate(['admin/login'], {
+          queryParams: { returnUrl: state.url }
+      });
       this.toastr.error("Please login first.")
       return false;
   }

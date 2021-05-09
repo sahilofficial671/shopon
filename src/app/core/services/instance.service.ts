@@ -10,8 +10,12 @@ export class InstanceService {
 
   constructor() {}
 
-  getAuthUser():User | null{
-    let user = JSON.parse(sessionStorage.getItem("user"));
+  getAuthUser():User{
+    return this.getUserFromLocalStorage();
+  }
+
+  getUserFromLocalStorage():User{
+    let user = JSON.parse(localStorage.getItem("user"));
     if(user){
       this.user = new User();
       this.user.id = user['id'];
@@ -36,9 +40,8 @@ export class InstanceService {
         userRole.updated_at = user.roles[role].updatedAt;
         this.user.roles.push(userRole);
       }
+
       return this.user;
     }
-
-    return null;
   }
 }
