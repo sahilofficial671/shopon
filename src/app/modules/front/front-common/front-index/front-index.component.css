@@ -1,0 +1,42 @@
+.header-right{
+  position: absolute;
+  right: 0;
+}
+.sidenav-container {
+  height:100%;
+}
+
+.sidenav-content {
+  min-width: 200px;
+}
+
+.sidenav {
+   user-select: none;
+   max-width: 300px;
+   min-width: 200px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.menu-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+
+.menu-button.rotated {
+  transform: rotate(180deg);
+}
+
+
+.submenu {
+  overflow-y: hidden;
+  transition: transform 300ms ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  padding-left: 30px;
+}
+.submenu.expanded {
+  transform: scaleY(1);
+}
