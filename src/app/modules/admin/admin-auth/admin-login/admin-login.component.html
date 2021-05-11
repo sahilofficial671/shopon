@@ -29,15 +29,17 @@
         form.get('password').touched
         && !form.get('password').hasError('required')
         && form.get('password').hasError('minlength')">
-          Password should be of minimum 4 characters
+          Password should be of minimum 4 characters\
         </mat-error>
       </mat-form-field>
     </p>
 
     <div class="button">
-      <button type="submit" mat-raised-button color="primary" [disabled]="!form.valid" >Login</button>
+      <button type="submit" mat-raised-button color="primary" [class.spinner]="loading" [disabled]="loading || !form.valid">
+        <span *ngIf="!loading">Login</span>
+        <span *ngIf="loading" style="color:transparent">Login</span>
+      </button>
     </div>
-
     </form>
   </mat-card-content>
 </mat-card>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -10,6 +10,13 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./admin-login.component.css']
 })
 export class AdminLoginComponent implements OnInit {
+
+  isSubmitted:boolean = false;
+  loading:boolean = false;
+  errors:any = [];
+  email:string;
+  password:string;
+  returnUrl: string;
 
   constructor(
     private router: Router,
@@ -24,11 +31,7 @@ export class AdminLoginComponent implements OnInit {
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
   }
 
-  isSubmitted:boolean = false;
-  errors:any = [];
-  email:string;
-  password:string;
-  returnUrl: string;
+
 
   form:FormGroup = new FormGroup({
     email: new FormControl('', [
@@ -58,6 +61,7 @@ export class AdminLoginComponent implements OnInit {
     this.isSubmitted = true;
 
     if(this.form.valid){
+      this.loading = true;
       this.email = this.form.get('email').value;
       this.password = this.form.get('password').value;
       console.log("Email: "+this.email+", Pass: "+this.password);
@@ -74,6 +78,7 @@ export class AdminLoginComponent implements OnInit {
             resolve(data);
           }
         }, err => {
+          this.loading = false;
           (err.status == 'error' && err.message != null)
           ? this.toastr.error(err.message)
           : this.toastr.error("User not found.");;
@@ -89,4 +94,5 @@ export class AdminLoginComponent implements OnInit {
       })
     }
   }
+
 }

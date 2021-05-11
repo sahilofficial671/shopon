@@ -2,12 +2,9 @@
   position: absolute;
   right: 0;
 }
-.sidenav-container {
-  height:100%;
-}
 
-.sidenav-content {
-  min-width: 200px;
+.sidenav-container {
+  height: 100vh;
 }
 
 .sidenav {
@@ -29,9 +26,7 @@
   transform: rotate(180deg);
 }
 
-.menu-item{
 
-}
 .submenu {
   overflow-y: hidden;
   transition: transform 300ms ease;
@@ -39,6 +34,7 @@
   transform-origin: top;
   padding-left: 30px;
 }
+
 .submenu.expanded {
   transform: scaleY(1);
 }

@@ -1,4 +1,8 @@
-<app-front-header></app-front-header>
-<main class="container">
-  <router-outlet></router-outlet>
-</main>
+<div *ngIf="!isAdmin()">
+  <app-front-header></app-front-header>
+</div>
+<div *ngIf="isAdmin()">
+  <app-admin-index></app-admin-index>
+</div>
+
+

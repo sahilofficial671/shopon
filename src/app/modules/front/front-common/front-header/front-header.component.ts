@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -10,6 +10,23 @@ import { InstanceService } from 'src/app/core/services/instance.service';
   styleUrls: ['./front-header.component.css']
 })
 export class FrontHeaderComponent implements OnInit {
+  // @ViewChild('sidenav') sidenav: MatSidenav;
+  isExpanded = true;
+  showSubmenu: boolean = false;
+  isShowing = false;
+  showSubSubMenu: boolean = false;
+
+  mouseenter() {
+    if (!this.isExpanded) {
+      this.isShowing = true;
+    }
+  }
+
+  mouseleave() {
+    if (!this.isExpanded) {
+      this.isShowing = false;
+    }
+  }
 
   links = [
     {"url":"/", "name": "Home"},
@@ -46,4 +63,5 @@ export class FrontHeaderComponent implements OnInit {
     && this.instanceService.getAuthUser()
     && this.instanceService.getAuthUser().hasRoleAdmin();
   }
+
 }
