@@ -10,6 +10,7 @@ import { AdminModule } from './modules/admin/admin.module';
 import { FrontModule } from './modules/front/front.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { ToastrModule } from 'ngx-toastr';
     AdminModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: PathLocationStrategy}],
   bootstrap: [AppComponent],
   exports: [
     AppRoutingModule,
