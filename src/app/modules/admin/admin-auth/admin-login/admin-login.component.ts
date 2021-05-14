@@ -71,7 +71,6 @@ export class AdminLoginComponent implements OnInit {
         this.authService
         .adminLogin({email: this.email, password: this.password})
         .subscribe(async data => {
-          console.log(JSON.stringify(data));
           if(data.status == 'success' && data.message != null && data.user){
             this.authService.mapUsertoLocalStorage(data.user);
             this.toastr.success(data.message);
@@ -86,8 +85,6 @@ export class AdminLoginComponent implements OnInit {
           reject(err);
         });
       }).then(()=>{
-        console.log(JSON.parse(localStorage.getItem("user")))
-
         this.returnUrl
         ? this.router.navigate([this.returnUrl])
         : this.router.navigate(["/admin/dashboard"])

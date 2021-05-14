@@ -25,11 +25,6 @@ export class AdminIndexComponent implements OnInit {
 
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
 
-  isExpanded = true;
-  showSubmenu: boolean = false;
-  isShowing = false;
-  showSubSubMenu: boolean = false;
-
   links = [
     {"url":"/admin/dashboard", "name": "Dashboard"},
     {"url":"/admin/products", "name": "Products"},
@@ -57,8 +52,7 @@ export class AdminIndexComponent implements OnInit {
   }
 
   // On every route change toggle sidenav
-  onRouterDeactivate(event):void{
+  onRouterActivate(event):void{
     this.isLogged() ? this.sidenav.open() : this.sidenav.close()
-    console.log(event);
   }
 }

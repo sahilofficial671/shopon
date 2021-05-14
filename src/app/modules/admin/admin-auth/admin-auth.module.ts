@@ -16,7 +16,6 @@ import { MaterialModule } from 'src/app/shared/modules/material/material.module'
   ],
   exports: [
     AdminLoginComponent,
-    MaterialModule
   ],
 })
 export class AdminAuthModule { }

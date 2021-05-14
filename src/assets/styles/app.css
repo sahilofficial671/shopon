@@ -1,0 +1,37 @@
+*, :after, :before {
+  box-sizing: border-box;
+}
+
+.layout-container .layout-columns{
+  display: flex;
+  flex: 1;
+  -ms-flex: 1 1 auto;
+  flex-direction: row;
+  width: 100%;
+}
+
+.layout-container .layout-columns .column{
+  order: 1;
+  flex: 1 0;
+  min-width: 0;
+}
+
+.layout-container .layout-columns .column{
+  padding: 2.25rem 2.25rem .75rem;
+}
+
+table{
+  line-height: 1.5em;
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: table;
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+.card .card-header .mat-progress-spinner{
+  float: right;
+}

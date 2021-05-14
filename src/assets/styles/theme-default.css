@@ -1,0 +1,78 @@
+.theme-default .layout .layout-container {
+  background-color: #edf1f7;
+  color: #222b45;
+  font-size: .9375rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  min-height: 100vh;
+}
+
+.theme-default .card{
+  background-color: #fff;
+  border: .0625rem solid #e4e9f2;
+  border-radius: .25rem;
+  box-shadow: none;
+  color: #222b45;
+  font-size: .9375rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  margin-bottom: 1.875rem;
+  scrollbar-face-color: #e4e9f2;
+  scrollbar-track-color: #f7f9fc;
+}
+
+.theme-default .card .card-header {
+  background-color: #fff;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #edf1f7;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+  color: #222b45;
+  font-size: .9375rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+
+.theme-default .card .card-body {
+  flex: 1;
+  -ms-flex: 1 1 auto;
+  overflow: auto;
+  padding: 1rem 1.5rem;
+  position: relative;
+  scrollbar-face-color: #e4e9f2;
+  scrollbar-track-color: #f7f9fc;
+}
+
+.theme-default .table{
+  box-shadow: none;
+}
+
+.theme-default .table thead tr {
+  background: #fff;
+}
+
+.table>:not(:last-child)>:last-child>*{
+  border: 0;
+}
+
+.theme-default .table tr td, .theme-default .table tr th {
+  position: relative;
+  padding: .875rem 1.25rem;
+  border: 1.4px solid #edf1f7 !important;
+  vertical-align: middle;
+}
+
+.theme-default .table tr td, .theme-default .table tr th, .theme-default .table tr th a {
+  font-size: .9375rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  color: #222b45;
+}
+
+.theme-default .table > tbody > tr:nth-of-type(odd) {
+  background-color: #f7f9fc;
+}
+
+.theme-default .table > tbody > tr:hover {
+  background-color: #eff2f8;
+}

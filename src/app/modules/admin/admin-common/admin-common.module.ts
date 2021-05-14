@@ -20,7 +20,6 @@ import { MaterialModule } from 'src/app/shared/modules/material/material.module'
   exports: [
     RouterModule,
     AppRoutingModule,
-
     AdminIndexComponent
   ]
 })
