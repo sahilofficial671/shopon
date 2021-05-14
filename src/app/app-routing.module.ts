@@ -27,8 +27,8 @@ const routes: Routes = [
   {
     path: 'admin', canActivate: [AdminGuard], children: [
       { path: "dashboard", component:  AdminDashboardComponent},
-      { path: "products", children: [
-        { path: "list", component:  AdminProductListComponent},
+      { path: "products", component:  AdminProductListComponent},
+      { path: "product", children: [
         { path: ":id", component:  AdminProductUpdateComponent},
       ]},
     ]

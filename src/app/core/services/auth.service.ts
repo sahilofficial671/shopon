@@ -41,7 +41,7 @@ export class AuthService {
       this.user.gender = user.gender;
       this.user.email = user.email;
       this.user.username = user.userName;
-      this.user.password = user.password;
+      this.user.password = null;
       this.user.date_of_birth = user.dateOfBirth;
       this.user.phone = user.phone;
       this.user.created_at = user.createdAt;
