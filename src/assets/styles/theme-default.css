@@ -76,3 +76,21 @@
 .theme-default .table > tbody > tr:hover {
   background-color: #eff2f8;
 }
+
+.theme-default .actions .action {
+  border-left: 1px solid rgb(246 246 246 / 37%);
+}
+
+.theme-default .toolbar .user-container .user-image{
+  border-radius: 50%;
+  border: 1px solid #fff;
+  padding: 2px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;}
+
+a.mat-button:hover{
+  color: #fff;
+}

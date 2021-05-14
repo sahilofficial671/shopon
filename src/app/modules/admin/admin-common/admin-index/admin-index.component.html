@@ -1,15 +1,32 @@
 <div class="layout">
   <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <button mat-icon-button *ngIf="isLogged()">
-        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-      </button>
-      <a mat-button [routerLink]="'/'"><h1>Shopon</h1></a>
-      <span class="menu-spacer"></span>
-      <div class="header-right">
-        <a mat-button mat-mini-fab *ngIf="isLogged()" aria-label="Logout" (click)="logout()">
-          <mat-icon>logout</mat-icon>
-        </a>
+    <mat-toolbar-row class="toolbar">
+      <div class="toolbar-left">
+        <button mat-icon-button *ngIf="isLogged()">
+          <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+        </button>
+        <a mat-button [routerLink]="'/'"><h1>Shopon</h1></a>
+      </div>
+
+      <div class="toolbar-right" *ngIf="isLogged()">
+        <div class="actions">
+          <div class="action user-action size-medium shape-round">
+            <div class="user-container">
+              <button mat-button [matMenuTriggerFor]="beforeMenu">
+                <div class="user-button">
+                  <div class="user-image me-2">SB</div>
+                  <div class="user-info">{{user.firstName}}</div>
+                </div>
+
+              </button>
+              <mat-menu #beforeMenu="matMenu" xPosition="before">
+                <button mat-menu-item *ngIf="isLogged()" aria-label="Logout" (click)="logout()">
+                  <mat-icon>trending_flat</mat-icon>Logout
+                </button>
+              </mat-menu>
+            </div>
+          </div>
+        </div>
       </div>
    </mat-toolbar-row>
   </mat-toolbar>

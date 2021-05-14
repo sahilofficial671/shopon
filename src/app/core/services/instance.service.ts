@@ -18,9 +18,9 @@ export class InstanceService {
     let user = JSON.parse(localStorage.getItem("user"));
     if(user){
       this.user = new User();
-      this.user.id = user['id'];
-      this.user.first_name = user.firstName;
-      this.user.last_name = user.lastName;
+      this.user.id = user.id;
+      this.user.firstName = user.firstName;
+      this.user.lastName = user.lastName;
       this.user.gender = user.gender;
       this.user.email = user.email;
       this.user.username = user.userName;

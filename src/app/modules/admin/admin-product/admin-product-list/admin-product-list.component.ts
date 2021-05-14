@@ -6,6 +6,8 @@ import { Product } from 'src/app/shared/models/product.model';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { User } from 'src/app/shared/models/user.model';
+import { InstanceService } from 'src/app/core/services/instance.service';
 
 @Component({
   selector: 'app-admin-product-list',
@@ -28,12 +30,14 @@ export class AdminProductListComponent implements OnInit {
   products:Product[] = [];
   ready:boolean = false;
 
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private instanceService: InstanceService
   ) { }
 
   ngOnInit(){
@@ -72,7 +76,6 @@ export class AdminProductListComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.products)
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      // this.dataSource.paginator._changePageSize(this.dataSource.paginator.pageSize);
     }).catch((err) => {
       console.log(err);
     })

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { InstanceService } from 'src/app/core/services/instance.service';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-admin-index',
@@ -11,6 +12,8 @@ import { InstanceService } from 'src/app/core/services/instance.service';
   styleUrls: ['./admin-index.component.css']
 })
 export class AdminIndexComponent implements OnInit {
+
+  user:User;
 
   constructor(private router: Router,
     private authService: AuthService,
@@ -20,7 +23,8 @@ export class AdminIndexComponent implements OnInit {
     }
 
   ngOnInit(): void {
-
+    this.user = this.instanceService.getAuthUser()
+    console.log(this.user);
   }
 
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
@@ -53,6 +57,12 @@ export class AdminIndexComponent implements OnInit {
 
   // On every route change toggle sidenav
   onRouterActivate(event):void{
-    this.isLogged() ? this.sidenav.open() : this.sidenav.close()
+
+    if(this.isLogged()){
+      this.sidenav.open()
+      return;
+    }
+
+    this.sidenav.close()
   }
 }

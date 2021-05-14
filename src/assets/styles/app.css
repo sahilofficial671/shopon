@@ -2,6 +2,48 @@
   box-sizing: border-box;
 }
 
+.toolbar{
+  justify-content: space-between;
+}
+
+.toolbar .toolbar-left, .toolbar .toolbar-right{
+  display: flex;
+  align-items: center;
+  width: auto;
+}
+
+.toolbar .actions{
+  display: flex;
+  align-items: center;
+}
+
+.toolbar .actions .action{
+  height: auto;
+  display: flex;
+  align-content: center;
+  padding: 0 1.25rem;
+}
+
+.toolbar .actions .action.user-action{
+  padding: 0;
+}
+
+.toolbar .user-action{
+  display: flex;
+  cursor: pointer;
+}
+
+.toolbar .user-action .user-container{
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.toolbar .user-action .user-container .user-button{
+  display: flex;
+}
+
+
 .layout-container .layout-columns{
   display: flex;
   flex: 1;
@@ -20,6 +62,7 @@
   padding: 2.25rem 2.25rem .75rem;
 }
 
+
 table{
   line-height: 1.5em;
   border-collapse: collapse;
@@ -35,3 +78,40 @@ table{
 .card .card-header .mat-progress-spinner{
   float: right;
 }
+
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+   user-select: none;
+   max-width: 300px;
+   min-width: 200px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.menu-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+
+.menu-button.rotated {
+  transform: rotate(180deg);
+}
+
+
+.submenu {
+  overflow-y: hidden;
+  transition: transform 300ms ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  padding-left: 30px;
+}
+
+.submenu.expanded {
+  transform: scaleY(1);
+}
+
