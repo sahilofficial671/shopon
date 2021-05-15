@@ -23,8 +23,6 @@ export class AdminIndexComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.user = this.instanceService.getAuthUser()
-    console.log(this.user);
   }
 
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
@@ -57,12 +55,11 @@ export class AdminIndexComponent implements OnInit {
 
   // On every route change toggle sidenav
   onRouterActivate(event):void{
-
     if(this.isLogged()){
       this.sidenav.open()
+      this.user = this.instanceService.getAuthUser()
       return;
     }
-
     this.sidenav.close()
   }
 }
