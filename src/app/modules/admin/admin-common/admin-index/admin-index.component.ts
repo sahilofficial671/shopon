@@ -28,10 +28,10 @@ export class AdminIndexComponent implements OnInit {
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
 
   links = [
-    {"url":"/admin/dashboard", "name": "Dashboard"},
-    {"url":"/admin/products", "name": "Products"},
-    {"url":"/admin/orders", "name": "Orders"},
-    {"url":"/admin/users", "name": "Users"},
+    {"url":"/admin/dashboard", "name": "Dashboard", "icon":"border_all"},
+    {"url":"/admin/products", "name": "Products", "icon": "shopping_basket"},
+    {"url":"/admin/orders", "name": "Orders", "icon":"shopping_cart"},
+    {"url":"/admin/users", "name": "Users", "icon":"people"},
   ];
 
   isAdmin():boolean{

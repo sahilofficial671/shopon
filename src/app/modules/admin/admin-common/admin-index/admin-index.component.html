@@ -33,7 +33,11 @@
   <mat-sidenav-container class="sidenav-container" autosize>
     <mat-sidenav #sidenav mode="side" class="sidenav">
       <mat-nav-list>
-          <a mat-list-item [routerLink]="link.url" *ngFor="let link of links"> {{link.name}} </a>
+          <a mat-list-item [routerLink]="link.url" *ngFor="let link of links">
+
+            <mat-icon matListIcon *ngIf="link.icon" color="primary" class="me-2">{{link.icon}}</mat-icon>
+            {{link.name}}
+          </a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-content">
