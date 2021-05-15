@@ -16,10 +16,6 @@ export class AdminProductUpdateComponent implements OnInit {
   product:Product;
   isSubmitted:boolean = false;
   isLoaded:boolean = false;
-  errors:any = [];
-  email:string;
-  password:string;
-  returnUrl: string;
 
   form:FormGroup = new FormGroup({
     name: new FormControl('', [
