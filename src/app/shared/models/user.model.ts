@@ -6,13 +6,13 @@ export class User {
   lastName: string;
   gender: string;
   email: string;
-  username: string;
+  userName: string;
   password: string;
-  date_of_birth: string;
+  dateOfBirth: string;
   phone: string;
   roles:Array<Role>;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 
   hasRoleAdmin(): boolean{
     for(let role in this.roles){

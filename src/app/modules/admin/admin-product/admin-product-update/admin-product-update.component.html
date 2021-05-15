@@ -1,1 +1,70 @@
-<p>admin-product-update works!</p>
+<mat-card class="card">
+  <mat-card-title class="card-header">Product Details <mat-spinner [diameter]="20" *ngIf="!isLoaded"></mat-spinner></mat-card-title>
+  <mat-card-content class="card-body">
+    <form [formGroup]="form" (ngSubmit)="update()" [hidden]="!isLoaded">
+      <mat-grid-list cols="3" rowHeight="3:1">
+        <mat-grid-tile>
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input type="text" matInput placeholder="Name" formControlName="name" name="name">
+
+            <mat-error *ngIf="form.get('name').touched && form.get('name').hasError('required')">
+              Name is required
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field appearance="outline">
+            <mat-label>Quanity</mat-label>
+            <input type="text" matInput placeholder="Quanity" formControlName="quantity" name="quantity">
+
+            <mat-error *ngIf="form.get('quantity').touched && form.get('quantity').hasError('required')">
+              quantity is required
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field appearance="outline">
+            <mat-label>Price</mat-label>
+            <input type="text" matInput placeholder="Price" formControlName="price" name="price">
+            <mat-error *ngIf="form.get('price').touched && form.get('price').hasError('required')">
+              Price is required
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field appearance="outline">
+            <mat-label>Special Price</mat-label>
+            <input type="text" matInput placeholder="Special Price" formControlName="specialPrice" name="specialPrice">
+            <mat-error *ngIf="form.get('specialPrice').touched && form.get('specialPrice').hasError('required')">
+              Special Price is required
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+      <mat-grid-list cols="3" rowHeight="3:2">
+        <mat-grid-tile colspan="3">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea type="textarea" matInput rows="5" cols="40" placeholder="Description" formControlName="description" name="description"></textarea>
+            <mat-error *ngIf="form.get('description').touched && form.get('description').hasError('required')">
+              Description is required
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+
+      <div class="action-block">
+        <button type="submit"
+        mat-raised-button color="primary"
+        [disabled]="isSubmitted || !form.valid"> Update </button>
+        <mat-spinner [diameter]="20" class="ms-2" *ngIf="isSubmitted && form.valid"></mat-spinner>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

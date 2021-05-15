@@ -19,6 +19,7 @@
   margin-bottom: 1.875rem;
   scrollbar-face-color: #e4e9f2;
   scrollbar-track-color: #f7f9fc;
+  padding:0;
 }
 
 .theme-default .card .card-header {
@@ -28,7 +29,7 @@
   border-top-left-radius: .25rem;
   border-top-right-radius: .25rem;
   color: #222b45;
-  font-size: .9375rem;
+  font-size: 1.2rem;
   font-weight: 500;
   line-height: 1.5rem;
 }
@@ -77,7 +78,7 @@
   background-color: #eff2f8;
 }
 
-.theme-default .actions .action {
+.theme-default .toolbar .actions .action {
   border-left: 1px solid rgb(246 246 246 / 37%);
 }
 
@@ -94,3 +95,9 @@
 a.mat-button:hover{
   color: #fff;
 }
+
+
+.theme-default .sidenav{
+  box-shadow: 0 0.5rem 1rem 0 rgb(44 51 73 / 10%);
+}
+

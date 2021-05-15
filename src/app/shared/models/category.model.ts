@@ -3,6 +3,6 @@ export class Category {
   name: string;
   description: string;
   slug: string;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 }

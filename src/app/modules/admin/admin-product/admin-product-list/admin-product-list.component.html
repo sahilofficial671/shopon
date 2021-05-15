@@ -1,10 +1,51 @@
 <div class="card">
-  <h5 class="card-header">Products <mat-spinner [diameter]="20" *ngIf="!ready"></mat-spinner></h5>
+  <div class="card-header">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="title">
+        Products
+      </div>
+      <div class="actions">
+        <div class="action">
+          <mat-spinner [diameter]="20" *ngIf="!isLoaded"></mat-spinner>
+        </div>
+        <div class="action">
+          <button
+          mat-icon-button
+          mat-mini-fab
+          color="warn"
+          aria-label="Edit"
+          [disabled]="!selection.hasValue()"
+          (click)="delete()"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="card-body">
     <div class="table-container">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table table-bordered" matSort>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()"
+                          [aria-label]="checkboxLabel()"
+                          color="primary">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selection.toggle(row) : null"
+                          [checked]="selection.isSelected(row)"
+                          [aria-label]="checkboxLabel(row)"
+                          color="primary">
+            </mat-checkbox>
+          </td>
+        </ng-container>
 
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>
@@ -27,9 +68,9 @@
           <td mat-cell *matCellDef="let element"> {{element.price}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="special_price">
+        <ng-container matColumnDef="specialPrice">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Special Price </th>
-          <td mat-cell *matCellDef="let element"> {{element.special_price}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.specialPrice}} </td>
         </ng-container>
 
         <ng-container matColumnDef="actions">
@@ -38,15 +79,15 @@
              <a mat-mini-fab color="primary" aria-label="Edit" href="/admin/product/{{element.id}}" class="me-2">
               <mat-icon>edit</mat-icon>
             </a>
-            <a mat-mini-fab color="warn" aria-label="Edit" href="/admin/product/{{element.id}}/delete">
-              <mat-icon>delete</mat-icon>
-            </a>
           </td>
         </ng-container>
 
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="5" class="text-center">No data available.</td>
+          <td class="mat-cell" colspan="7" class="text-center">No data available.</td>
         </tr>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
       <mat-paginator [pageSizeOptions]="[25, 50, 100, 500]" showFirstLastButtons></mat-paginator>
     </div>

@@ -12,7 +12,7 @@
   width: auto;
 }
 
-.toolbar .actions{
+.toolbar .actions, .card-header .actions{
   display: flex;
   align-items: center;
 }
@@ -24,6 +24,11 @@
   padding: 0 1.25rem;
 }
 
+.card-header .actions .action{
+  display: flex;
+  align-content: center;
+  padding-left:10px;
+}
 .toolbar .actions .action.user-action{
   padding: 0;
 }
@@ -75,7 +80,7 @@ table{
   word-break: keep-all;
 }
 
-.card .card-header .mat-progress-spinner{
+.card .card-header .mat-progress-spinner, mat-card-title .mat-progress-spinner{
   float: right;
 }
 
@@ -91,6 +96,15 @@ table{
 
 .full-width {
   width: 100%;
+}
+
+mat-form-field.full-width {
+  padding-left: 1.8vw;
+    padding-right: 1.8vw;
+}
+
+app-admin-login mat-card{
+  max-width: 350px;
 }
 
 .menu-button {
@@ -115,3 +129,7 @@ table{
   transform: scaleY(1);
 }
 
+.action-block{
+  display: flex;
+  align-items: center;
+}

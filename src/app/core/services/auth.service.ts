@@ -39,12 +39,12 @@ export class AuthService {
     this.user.lastName = user.lastName;
     this.user.gender = null;
     this.user.email = null;
-    this.user.username = user.userName;
+    this.user.userName = user.userName;
     this.user.password = null;
-    this.user.date_of_birth = null;
+    this.user.dateOfBirth = null;
     this.user.phone = null;
-    this.user.created_at = null;
-    this.user.updated_at = null;
+    this.user.createdAt = null;
+    this.user.updatedAt = null;
 
     this.user.roles = [];
     for(let role in user.roles){
@@ -52,8 +52,8 @@ export class AuthService {
       userRole.id = user.roles[role].id;
       userRole.name = user.roles[role].name;
       userRole.description = null;
-      userRole.created_at = null;
-      userRole.updated_at = null;
+      userRole.createdAt = null;
+      userRole.updatedAt = null;
       this.user.roles.push(userRole);
     }
 

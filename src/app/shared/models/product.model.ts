@@ -5,10 +5,10 @@ export class Product {
   name: string;
   description: string;
   price: number;
-  special_price: number;
+  specialPrice: number;
   quantity: number;
   slug: string;
   categories:Array<Category>;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 }

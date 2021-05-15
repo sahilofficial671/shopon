@@ -4,6 +4,7 @@ import { AdminProductListComponent } from './admin-product-list/admin-product-li
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/shared/modules/material/material.module';
 import { AdminProductUpdateComponent } from './admin-product-update/admin-product-update.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { AdminProductUpdateComponent } from './admin-product-update/admin-produc
     CommonModule,
     RouterModule,
     MaterialModule,
+    ReactiveFormsModule,
   ],
   exports: [
     AdminProductListComponent,

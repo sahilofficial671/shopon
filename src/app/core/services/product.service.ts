@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
+import { Category } from 'src/app/shared/models/category.model';
+import { Product } from 'src/app/shared/models/product.model';
 import { environment } from 'src/environments/environment';
 import { ApiService } from '../api.service';
 import { InstanceService } from './instance.service';
@@ -9,6 +11,7 @@ import { InstanceService } from './instance.service';
 })
 export class ProductService {
 
+  products:Product[];
   constructor(
     private apiService: ApiService,
     private instanceService: InstanceService
@@ -23,5 +26,42 @@ export class ProductService {
 
   getProducts(): Observable<any> {
     return this.apiService.get(this.group_url);
+  }
+
+  updateProduct(product:Product): Observable<any>{
+    return this.apiService.put(this.url+"/update", product);
+  }
+
+  deleteProduct(product:Product): Observable<any>{
+    return this.apiService.delete(this.url+"/"+product.id+"/delete");
+  }
+
+  getProductsMappedToModel(products):Product[]{
+    this.products = [];
+    for(let index in products){
+      let product = new Product();
+      product.id = products[index].id;
+      product.name = products[index].name;
+      product.description = products[index].description;
+      product.quantity = products[index].quantity;
+      product.price = products[index].price;
+      product.specialPrice = products[index].specialPrice;
+      product.slug = products[index].slug;
+      product.createdAt = products[index].createdAt;
+      product.updatedAt = products[index].updatedAt;
+      product.categories = [];
+      for(let catIndex in products[index].categories){
+        let category = new Category();
+        category.id = products[index].categories[catIndex].id;
+        category.name = products[index].categories[catIndex].name;
+        category.description = products[index].categories[catIndex].description;
+        category.createdAt = products[index].categories[catIndex].createdAt;
+        category.updatedAt = products[index].categories[catIndex].updatedAt;
+        product.categories.push(category)
+      }
+      this.products.push(product);
+    }
+
+    return this.products;
   }
 }

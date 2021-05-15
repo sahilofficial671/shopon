@@ -23,22 +23,22 @@ export class ApiService {
   }
 
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    return this.http.get(path, { params }).pipe(catchError(this.formatErrors));
+    return this.http.get(path, { params }).pipe( retry(1), catchError(this.formatErrors));
   }
 
   put(path: string, body: Object = {}): Observable<any> {
     return this.http
       .put(path, JSON.stringify(body), this.httpOptions)
-      .pipe(catchError(this.formatErrors));
+      .pipe( retry(1), catchError(this.formatErrors));
   }
 
   post(path: string, body: Object = {}): Observable<any> {
     return this.http
       .post(path, JSON.stringify(body), this.httpOptions)
-      .pipe(catchError(this.formatErrors));
+      .pipe( retry(1), catchError(this.formatErrors));
   }
 
   delete(path): Observable<any> {
-    return this.http.delete(path).pipe(catchError(this.formatErrors));
+    return this.http.delete(path).pipe( retry(1), catchError(this.formatErrors));
   }
 }

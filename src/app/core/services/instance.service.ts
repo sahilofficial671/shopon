@@ -23,12 +23,12 @@ export class InstanceService {
       this.user.lastName = user.lastName;
       this.user.gender = user.gender;
       this.user.email = user.email;
-      this.user.username = user.userName;
+      this.user.userName = user.userName;
       this.user.password = user.password;
-      this.user.date_of_birth = user.dateOfBirth;
+      this.user.dateOfBirth = user.dateOfBirth;
       this.user.phone = user.phone;
-      this.user.created_at = user.createdAt;
-      this.user.updated_at = user.updatedAt;
+      this.user.createdAt = user.createdAt;
+      this.user.updatedAt = user.updatedAt;
 
       this.user.roles = [];
       for(let role in user.roles){
@@ -36,8 +36,8 @@ export class InstanceService {
         userRole.id = user.roles[role].id;
         userRole.name = user.roles[role].name;
         userRole.description = user.roles[role].description;
-        userRole.created_at = user.roles[role].created_at;
-        userRole.updated_at = user.roles[role].updatedAt;
+        userRole.createdAt = user.roles[role].createdAt;
+        userRole.updatedAt = user.roles[role].updatedAt;
         this.user.roles.push(userRole);
       }
 
