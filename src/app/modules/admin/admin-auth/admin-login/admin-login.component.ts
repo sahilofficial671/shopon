@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -10,9 +11,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./admin-login.component.css']
 })
 export class AdminLoginComponent implements OnInit {
-
+  passwordToggle = true;
   isSubmitted:boolean = false;
-  loading:boolean = false;
   errors:any = [];
   email:string;
   password:string;
@@ -31,8 +31,6 @@ export class AdminLoginComponent implements OnInit {
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
   }
 
-
-
   form:FormGroup = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -47,8 +45,8 @@ export class AdminLoginComponent implements OnInit {
   });
 
   errorBag:any = {
-    "username" : {
-      "required": "Username is required",
+    "userName" : {
+      "required": "userName is required",
       "email": "Please enter a valid email address"
     },
     "password" :{
@@ -58,14 +56,11 @@ export class AdminLoginComponent implements OnInit {
   };
 
   submit() {
-    this.isSubmitted = true;
-
     if(this.form.valid){
-      this.loading = true;
+      this.isSubmitted = true;
+      this.form.disable();
       this.email = this.form.get('email').value;
       this.password = this.form.get('password').value;
-      console.log("Email: "+this.email+", Pass: "+this.password);
-
       // Async call
       new Promise((resolve, reject) => {
         this.authService
@@ -77,17 +72,19 @@ export class AdminLoginComponent implements OnInit {
             resolve(data);
           }
         }, err => {
-          this.loading = false;
           (err.status == 'error' && err.message != null)
           ? this.toastr.error(err.message)
           : this.toastr.error("User not found.");;
           console.log(err);
           reject(err);
         });
-      }).then(()=>{
+      }).then((data) => {
         this.returnUrl
         ? this.router.navigate([this.returnUrl])
         : this.router.navigate(["/admin/dashboard"])
+      }).catch((err) => {
+        this.isSubmitted = false;
+        this.form.enable();
       })
     }
   }

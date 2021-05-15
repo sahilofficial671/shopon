@@ -1,9 +1,9 @@
-<mat-card>
-  <mat-card-title>Admin Login</mat-card-title>
-  <mat-card-content>
+<mat-card class="card">
+  <mat-card-title class="card-header">Admin Login</mat-card-title>
+  <mat-card-content class="card-body">
     <form [formGroup]="form" (ngSubmit)="submit()">
-    <p>
-      <mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
         <input type="text" matInput placeholder="Email" formControlName="email" name="email">
 
         <mat-error *ngIf="form.get('email').touched && form.get('email').hasError('required')">
@@ -16,11 +16,25 @@
           Please enter a valid email address
         </mat-error>
       </mat-form-field>
-    </p>
 
-    <p>
-      <mat-form-field>
-        <input type="password" matInput placeholder="Password" formControlName="password">
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input type="password"
+        matInput
+        placeholder="Password"
+        formControlName="password"
+        [type]="passwordToggle ? 'password' : 'text'"
+        >
+        <button
+        mat-icon-button
+        matSuffix
+        (click)="passwordToggle = !passwordToggle"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="passwordToggle"
+        [disabled]="isSubmitted"
+        >
+          <mat-icon>{{passwordToggle ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
 
         <mat-error *ngIf="form.get('password').touched && form.get('password').hasError('required')">
           Password is required
@@ -29,17 +43,16 @@
         form.get('password').touched
         && !form.get('password').hasError('required')
         && form.get('password').hasError('minlength')">
-          Password should be of minimum 4 characters\
+          Password should be of minimum 4 characters
         </mat-error>
       </mat-form-field>
-    </p>
 
-    <div class="button">
-      <button type="submit" mat-raised-button color="primary" [class.spinner]="loading" [disabled]="loading || !form.valid">
-        <span *ngIf="!loading">Login</span>
-        <span *ngIf="loading" style="color:transparent">Login</span>
-      </button>
-    </div>
+      <div class="action-block">
+        <button type="submit"
+        mat-raised-button color="primary"
+        [disabled]="isSubmitted || !form.valid"> Login </button>
+        <mat-spinner [diameter]="20" class="ms-2" *ngIf="isSubmitted && form.valid"></mat-spinner>
+      </div>
     </form>
   </mat-card-content>
 </mat-card>
