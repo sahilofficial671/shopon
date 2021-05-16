@@ -5,12 +5,14 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/shared/modules/material/material.module';
 import { AdminProductUpdateComponent } from './admin-product-update/admin-product-update.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AdminProductCreateComponent } from './admin-product-create/admin-product-create.component';
 
 
 @NgModule({
   declarations: [
     AdminProductListComponent,
-    AdminProductUpdateComponent
+    AdminProductUpdateComponent,
+    AdminProductCreateComponent
   ],
   imports: [
     CommonModule,
