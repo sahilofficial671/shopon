@@ -44,6 +44,8 @@ export class AdminProductListComponent implements OnInit {
         reject(err);
       });
     }).then((data) => {
+      console.log(this.products);
+
       this.isLoaded = true;
       this.dataSource = new MatTableDataSource(this.products)
       this.dataSource.paginator = this.paginator;
@@ -106,5 +108,9 @@ export class AdminProductListComponent implements OnInit {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  }
+
+  create(){
+    this.router.navigate(['/admin/product/create']);
   }
 }

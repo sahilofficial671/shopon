@@ -28,6 +28,10 @@ export class ProductService {
     return this.apiService.get(this.group_url);
   }
 
+  submitProduct(product:Product): Observable<any> {
+    return this.apiService.post(this.url+"/submit", product);
+  }
+
   updateProduct(product:Product): Observable<any>{
     return this.apiService.put(this.url+"/update", product);
   }
@@ -36,7 +40,7 @@ export class ProductService {
     return this.apiService.delete(this.url+"/"+product.id+"/delete");
   }
 
-  getProductsMappedToModel(products):Product[]{
+  getProductsMappedToModel(products:any):Product[]{
     this.products = [];
     for(let index in products){
       let product = new Product();

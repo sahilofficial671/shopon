@@ -22,15 +22,15 @@
         </div>
 
         <div class="action">
-          <button
+          <a
           mat-icon-button
           mat-mini-fab
           color="primary"
           aria-label="Add Product"
-          (click)="delete()"
+          (click)="create()"
           >
             <mat-icon matTooltip="Add Product" [matTooltipPosition]="'above'">add</mat-icon>
-          </button>
+          </a>
         </div>
 
       </div>
@@ -87,9 +87,9 @@
         </ng-container>
 
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef> Actions </th>
-          <td mat-cell *matCellDef="let element">
-             <a mat-mini-fab color="primary" aria-label="Edit" href="/admin/product/{{element.id}}" class="me-2">
+          <th mat-header-cell *matHeaderCellDef style="max-width:60px;" class="text-center"> Actions </th>
+          <td mat-cell *matCellDef="let element" style="max-width:60px;" class="text-center">
+             <a color="primary" aria-label="Edit" href="/admin/product/update/{{element.id}}" class="me-2">
               <mat-icon matTooltip="Edit Product" [matTooltipPosition]="'right'">edit</mat-icon>
             </a>
           </td>

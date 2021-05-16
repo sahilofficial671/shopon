@@ -4,6 +4,7 @@ import { AdminGuard } from './core/guards/admin.guard';
 import { GuestAdminGuard } from './core/guards/guest-admin.guard';
 import { AdminLoginComponent } from './modules/admin/admin-auth/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './modules/admin/admin-dashboard/admin-dashboard.component';
+import { AdminProductCreateComponent } from './modules/admin/admin-product/admin-product-create/admin-product-create.component';
 import { AdminProductListComponent } from './modules/admin/admin-product/admin-product-list/admin-product-list.component';
 import { AdminProductUpdateComponent } from './modules/admin/admin-product/admin-product-update/admin-product-update.component';
 import { TestComponent } from './modules/admin/test/test.component';
@@ -29,7 +30,8 @@ const routes: Routes = [
       { path: "dashboard", component:  AdminDashboardComponent},
       { path: "products", component:  AdminProductListComponent},
       { path: "product", children: [
-        { path: ":id", component:  AdminProductUpdateComponent},
+        { path: "update/:id", component:  AdminProductUpdateComponent},
+        { path: "create", component:  AdminProductCreateComponent},
       ]},
     ]
   },

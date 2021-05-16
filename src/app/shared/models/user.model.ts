@@ -23,4 +23,8 @@ export class User {
 
     return false;
   }
+
+  getFullName():string{
+    return this.firstName+" "+this.lastName;
+  }
 }

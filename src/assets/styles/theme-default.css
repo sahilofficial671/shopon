@@ -58,7 +58,7 @@
 
 .theme-default .table tr td, .theme-default .table tr th {
   position: relative;
-  padding: .875rem 1.25rem;
+  padding: .575rem 1.25rem;
   border: 1.4px solid #edf1f7 !important;
   vertical-align: middle;
 }
@@ -100,3 +100,10 @@ a.mat-button:hover{
   box-shadow: 0 0.5rem 1rem 0 rgb(44 51 73 / 10%);
 }
 
+form .mat-form-field{
+  width: 100%;
+}
+
+.mat-form-field-subscript-wrapper {
+  font-size: 78%;
+}

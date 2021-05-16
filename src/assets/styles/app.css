@@ -2,8 +2,10 @@
   box-sizing: border-box;
 }
 
-.toolbar{
-  justify-content: space-between;
+/** Toolbar Starts */
+
+.toolbar .spacer{
+  flex: 1 1 auto;
 }
 
 .toolbar .toolbar-left, .toolbar .toolbar-right{
@@ -24,11 +26,6 @@
   padding: 0 1.25rem;
 }
 
-.card-header .actions .action{
-  display: flex;
-  align-content: center;
-  padding-left:10px;
-}
 .toolbar .actions .action.user-action{
   padding: 0;
 }
@@ -48,7 +45,25 @@
   display: flex;
 }
 
+/** Toolbar Ends */
 
+/** Card start */
+
+.card-header .actions .action{
+  display: flex;
+  align-content: center;
+  padding-left:10px;
+}
+
+.card .card-header .mat-progress-spinner, mat-card-title .mat-progress-spinner{
+  float: right;
+}
+
+
+/** Card ends */
+
+
+/** Layout start */
 .layout-container .layout-columns{
   display: flex;
   flex: 1;
@@ -67,6 +82,9 @@
   padding: 2.25rem 2.25rem .75rem;
 }
 
+/** Layout ends */
+
+/** Table start */
 
 table{
   line-height: 1.5em;
@@ -80,9 +98,9 @@ table{
   word-break: keep-all;
 }
 
-.card .card-header .mat-progress-spinner, mat-card-title .mat-progress-spinner{
-  float: right;
-}
+/** Table ends */
+
+/** Sidenav starts */
 
 .sidenav-container {
   height: 100vh;
@@ -94,30 +112,29 @@ table{
    min-width: 200px;
 }
 
+/** Sidenav ends */
+
+
+
 .full-width {
   width: 100%;
-}
-
-mat-form-field.full-width {
-  padding-left: 1.8vw;
-    padding-right: 1.8vw;
 }
 
 app-admin-login mat-card{
   max-width: 350px;
 }
 
-.menu-button {
+/* .menu-button {
   transition: 300ms ease-in-out;
   transform: rotate(0deg);
 }
 
 .menu-button.rotated {
   transform: rotate(180deg);
-}
+} */
 
 
-.submenu {
+/* .submenu {
   overflow-y: hidden;
   transition: transform 300ms ease;
   transform: scaleY(0);
@@ -127,9 +144,10 @@ app-admin-login mat-card{
 
 .submenu.expanded {
   transform: scaleY(1);
-}
+} */
 
 .action-block{
   display: flex;
   align-items: center;
 }
+

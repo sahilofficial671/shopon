@@ -7,6 +7,7 @@
         </button>
         <a mat-button [routerLink]="'/'"><h1>Shopon</h1></a>
       </div>
+      <span class="spacer"></span>
 
       <div class="toolbar-right" *ngIf="isLogged()">
         <div class="actions">
@@ -21,7 +22,7 @@
               </button>
               <mat-menu #beforeMenu="matMenu" xPosition="before">
                 <button mat-menu-item *ngIf="isLogged()" aria-label="Logout" (click)="logout()">
-                  <mat-icon>trending_flat</mat-icon>Logout
+                  <mat-icon>exit_to_app</mat-icon>Logout
                 </button>
               </mat-menu>
             </div>

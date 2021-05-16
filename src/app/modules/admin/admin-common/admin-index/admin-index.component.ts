@@ -28,7 +28,7 @@ export class AdminIndexComponent implements OnInit {
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
 
   links = [
-    {"url":"/admin/dashboard", "name": "Dashboard", "icon":"border_all"},
+    {"url":"/admin/dashboard", "name": "Dashboard", "icon":"dashboard"},
     {"url":"/admin/products", "name": "Products", "icon": "shopping_basket"},
     {"url":"/admin/orders", "name": "Orders", "icon":"shopping_cart"},
     {"url":"/admin/users", "name": "Users", "icon":"people"},
