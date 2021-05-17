@@ -45,8 +45,6 @@ export class AdminProductCreateComponent implements OnInit {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  dataSource:MatTableDataSource<Category>;
-
   form:FormGroup = new FormGroup({
     name: new FormControl('', [
       Validators.required
@@ -84,7 +82,6 @@ export class AdminProductCreateComponent implements OnInit {
       }
 
       this.isLoaded = true;
-      this.dataSource = new MatTableDataSource(this.categories)
 
       // Initialize Categories to show on dom
       this.categories.forEach(category => this.categoriesToShow.push(category));
@@ -105,7 +102,6 @@ export class AdminProductCreateComponent implements OnInit {
 
   create(){
     if(this.form.valid){
-      this.form.disable()
       this.form.disable()
       this.categoryControl.disable()
       this.chipList.chips.forEach((chip) => {chip.disabled = true})

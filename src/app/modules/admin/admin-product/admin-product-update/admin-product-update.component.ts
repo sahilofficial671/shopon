@@ -1,8 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipList } from '@angular/material/chips';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { CategoryService } from 'src/app/core/services/category.service';
 import { ProductService } from 'src/app/core/services/product.service';
+import { Category } from 'src/app/shared/models/category.model';
 import { Product } from 'src/app/shared/models/product.model';
 
 @Component({
@@ -16,6 +23,19 @@ export class AdminProductUpdateComponent implements OnInit {
   product:Product;
   isSubmitted:boolean = false;
   isLoaded:boolean = false;
+
+  filteredCategories: Observable<Object[]>;
+  categoriesToShow:Category[] = [];
+  categoryList:Category[] = [];
+
+  visible = true;
+  selectable = true;
+  removable = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+
+  @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
+  @ViewChild('chipList') chipList: MatChipList;
+  categoryControl = new FormControl();
 
   form:FormGroup = new FormGroup({
     name: new FormControl('', [
@@ -42,8 +62,28 @@ export class AdminProductUpdateComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private toastr: ToastrService,
-    private productService: ProductService
+    private productService: ProductService,
+    private categoryService: CategoryService
   ) {
+    this.categoryService
+    .getCategories()
+    .subscribe(async data => {
+      console.log(data);
+      let categories = this.categoryService.getCategoriesMappedToModel(data.categories);
+
+      if(data.categories){
+        this.isLoaded = true;
+          // Initialize Categories to show on dom
+         categories.forEach(category => this.categoriesToShow.push(category));
+      }
+
+    }, err => {
+      console.log(err);
+      this.isLoaded = true;
+      (err.status == 'error' && err.message != null)
+      ? this.toastr.error(err.message)
+      : this.toastr.error("Something went wrong. Please try again later");
+    });
   }
 
   ngOnInit(){
@@ -54,8 +94,11 @@ export class AdminProductUpdateComponent implements OnInit {
       .getProduct(this.id)
       .subscribe(data => {
         if(data.status == 'success' && data.product){
-          this.product = this.productService.getProductsMappedToModel([data.product])[0];
           this.isLoaded = true;
+          this.product = this.productService.getProductsMappedToModel([data.product])[0];
+
+           // Initialize Categories to show on dom
+           this.product.categories.forEach(category => this.categoryList.push(category));
 
           // Set form values
           this.form.get('name').setValue(this.product.name)
@@ -66,16 +109,44 @@ export class AdminProductUpdateComponent implements OnInit {
           this.form.get('slug').setValue(this.product.slug)
         }
       }, err => {
+        console.log(err);
+        this.isLoaded = true;
         (err.status == 'error' && err.message != null)
         ? this.toastr.error(err.message)
-        : this.toastr.error("Something went wrong.");
-        console.log(err);
+        : this.toastr.error("Something went wrong. Please try again later");
       });
+
+      this.filteredCategories = this.categoryControl.valueChanges.pipe(
+        startWith(''),
+        map((category: string | Category | null) => category ? this._filter(category) : this.categoriesToShow.slice()));
+  }
+
+  private _filter(value: string|Category): Category[] {
+    const searchFor = (value instanceof Category) ? value.name.toLowerCase() : value;
+    return this.categoriesToShow.filter(category => category.name.toLowerCase().indexOf(searchFor) === 0);
+  }
+
+  remove(cat: Category): void {
+    this.categoryList = this.categoryList.filter(category => category.id !== cat.id);
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    // Filter from already selected before adding them
+    if(this.categoryList.filter(category => event.option.value.id == category.id).length > 0){
+      this.toastr.error("Already selected!")
+      return;
+    }
+
+    this.categoryList.push(event.option.value);
+    this.categoryInput.nativeElement.value = '';
+    this.categoryControl.setValue(null);
   }
 
   update(){
     if(this.form.valid){
       this.form.disable()
+      this.categoryControl.disable()
+      this.chipList.chips.forEach((chip) => {chip.disabled = true})
       this.isSubmitted = true;
 
       // Gather some new & old details of model from window & variable
@@ -87,18 +158,22 @@ export class AdminProductUpdateComponent implements OnInit {
       product.price = this.form.get('price').value;
       product.specialPrice = this.form.get('specialPrice').value;
       product.slug = this.form.get('slug').value;
-      product.categories = this.product.categories;
+      product.categories = this.categoryList;
 
       this.productService
       .updateProduct(product)
       .subscribe(data => {
         if(data.status == 'success' && data.message != null){
           this.form.enable()
+          this.categoryControl.enable()
+          this.chipList.chips.forEach((chip) => {chip.disabled = false})
           this.isSubmitted = false;
           this.toastr.success(data.message);
         }
       }, err => {
         this.form.enable()
+        this.categoryControl.enable()
+        this.chipList.chips.forEach((chip) => {chip.disabled = false})
         console.log(err);
         this.isSubmitted = false;
         if(err.status == 'error' && err.message != null){

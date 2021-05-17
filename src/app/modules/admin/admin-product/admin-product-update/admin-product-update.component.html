@@ -2,8 +2,8 @@
   <mat-card-title class="card-header">Product Details <mat-spinner [diameter]="20" *ngIf="!isLoaded"></mat-spinner></mat-card-title>
   <mat-card-content class="card-body">
     <form [formGroup]="form" (ngSubmit)="update()" [hidden]="!isLoaded">
-      <mat-grid-list cols="3" rowHeight="3:1">
-        <mat-grid-tile>
+      <div class="row">
+        <div class="col-md-6">
           <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
             <input type="text" matInput placeholder="Name" formControlName="name" name="name">
@@ -12,42 +12,84 @@
               Name is required
             </mat-error>
           </mat-form-field>
-        </mat-grid-tile>
+        </div>
 
-        <mat-grid-tile>
+        <div class="col-sm-2">
           <mat-form-field appearance="outline">
             <mat-label>Quanity</mat-label>
-            <input type="text" matInput placeholder="Quanity" formControlName="quantity" name="quantity">
+            <input type="number" matInput placeholder="Quanity" formControlName="quantity" name="quantity">
 
             <mat-error *ngIf="form.get('quantity').touched && form.get('quantity').hasError('required')">
               quantity is required
             </mat-error>
           </mat-form-field>
-        </mat-grid-tile>
+        </div>
 
-        <mat-grid-tile>
+        <div class="col-sm-2 col-xs-6">
           <mat-form-field appearance="outline">
             <mat-label>Price</mat-label>
-            <input type="text" matInput placeholder="Price" formControlName="price" name="price">
+            <input type="number" matInput placeholder="Price" formControlName="price" name="price">
             <mat-error *ngIf="form.get('price').touched && form.get('price').hasError('required')">
               Price is required
             </mat-error>
           </mat-form-field>
-        </mat-grid-tile>
+        </div>
 
-        <mat-grid-tile>
+        <div class="col-sm-2 col-xs-6">
           <mat-form-field appearance="outline">
             <mat-label>Special Price</mat-label>
-            <input type="text" matInput placeholder="Special Price" formControlName="specialPrice" name="specialPrice">
+            <input type="number" matInput placeholder="Special Price" formControlName="specialPrice" name="specialPrice">
             <mat-error *ngIf="form.get('specialPrice').touched && form.get('specialPrice').hasError('required')">
               Special Price is required
             </mat-error>
           </mat-form-field>
-        </mat-grid-tile>
-      </mat-grid-list>
+        </div>
 
-      <mat-grid-list cols="3" rowHeight="3:2">
-        <mat-grid-tile colspan="3">
+        <div class="col-sm-4 col-xs-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Slug</mat-label>
+            <input type="text" matInput placeholder="Slug" formControlName="slug" name="slug">
+
+            <mat-error *ngIf="form.get('slug').touched && form.get('slug').hasError('required')">
+              Slug is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-8 col-xs-12">
+          <mat-form-field class="example-chip-list" appearance="outline" #chipListField>
+            <mat-label>Select Categories</mat-label>
+            <mat-chip-list #chipList aria-label="Category selection">
+              <mat-chip
+                *ngFor="let category of categoryList"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="remove(category)"
+                >
+                {{category.name}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input
+                placeholder="Select Categories..."
+                #categoryInput
+                [formControl]="categoryControl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option
+              *ngFor="let category of filteredCategories | async"
+              [value]="category"
+              [disabled]="this.categoryList.includes(category)">
+                {{category.name}}
+                <span *ngIf="this.categoryList.includes(category)">(Selected)</span>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-12">
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Description</mat-label>
             <textarea type="textarea" matInput rows="5" cols="40" placeholder="Description" formControlName="description" name="description"></textarea>
@@ -55,9 +97,9 @@
               Description is required
             </mat-error>
           </mat-form-field>
-        </mat-grid-tile>
-      </mat-grid-list>
+        </div>
 
+      </div>
 
       <div class="action-block">
         <button type="submit"
