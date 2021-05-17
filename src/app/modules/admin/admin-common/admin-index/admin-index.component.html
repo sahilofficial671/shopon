@@ -31,25 +31,23 @@
       </div>
    </mat-toolbar-row>
   </mat-toolbar>
-  <mat-sidenav-container class="sidenav-container" autosize>
-    <mat-sidenav #sidenav mode="side" class="sidenav">
-      <mat-nav-list>
-          <a mat-list-item [routerLink]="link.url" *ngFor="let link of links">
+  <div class="layout-container">
+    <mat-sidenav-container class="sidenav-container" autosize>
+      <mat-sidenav #sidenav mode="side" class="sidenav">
+        <mat-nav-list>
+            <a mat-list-item [routerLink]="link.url" *ngFor="let link of links">
 
-            <mat-icon matListIcon *ngIf="link.icon" color="primary" class="me-2">{{link.icon}}</mat-icon>
-            {{link.name}}
-          </a>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content class="sidenav-content">
-      <div class="layout-container">
-        <div class="layout-columns">
-          <div class="column">
+              <mat-icon matListIcon *ngIf="link.icon" color="primary" class="me-2">{{link.icon}}</mat-icon>
+              {{link.name}}
+            </a>
+        </mat-nav-list>
+      </mat-sidenav>
+      <mat-sidenav-content class="sidenav-content">
+        <div class="main-container">
             <router-outlet (activate)='onRouterActivate($event)'></router-outlet>
-          </div>
         </div>
-      </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
 </div>
 
