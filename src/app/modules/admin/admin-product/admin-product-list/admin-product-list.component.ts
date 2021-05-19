@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ToastrService } from 'ngx-toastr';
 import { SelectionModel } from '@angular/cdk/collections';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-admin-product-list',
@@ -16,21 +17,29 @@ import { SelectionModel } from '@angular/cdk/collections';
 
 export class AdminProductListComponent implements OnInit {
 
-  displayedColumns: string[] = ['select', 'id', 'name', 'quantity', 'price', "specialPrice", "actions"];
+  displayedColumns: string[] = ['select', 'image', 'id', 'name', 'quantity', 'price', "specialPrice", "actions"];
   dataSource:MatTableDataSource<Product>;
   selection = new SelectionModel<Product>(true, []);
 
-  products:Product[] = [];
-  isLoaded:boolean = false;
+  products:Product[];
+  isLoaded:boolean;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
+  imagePrefix:string;
+  noImagePath:string;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastrService,
     private productService: ProductService,
-  ) { }
+  ) {
+    this.imagePrefix = environment.imageKitUrl;
+    this.noImagePath = environment.noImagePath
+    this.products = [];
+    this.isLoaded = false;
+  }
 
   ngOnInit(){
     new Promise((resolve, reject) =>{
@@ -44,8 +53,6 @@ export class AdminProductListComponent implements OnInit {
         reject(err);
       });
     }).then((data) => {
-      console.log(this.products);
-
       this.isLoaded = true;
       this.dataSource = new MatTableDataSource(this.products)
       this.dataSource.paginator = this.paginator;

@@ -101,13 +101,38 @@
               </mat-form-field>
             </div>
 
+            <div class="col-sm-6 col-xs-6 images-block">
+              <mat-list>
+                <div mat-subheader>Main Image</div>
+                <mat-list-item>
+                  <div class="has-image-uploader has-image">
+
+                    <div class="image">
+                      <input type="text" formControlName="mainImagePath" value="" name="mainImagePath" [hidden]="true">
+                      <img [src]="mainImagePath"  alt="">
+                    </div>
+
+                    <div class="content">
+                      <mat-icon mat-list-icon>image</mat-icon>
+                      <div mat-line disable="true">Choose File</div>
+                    </div>
+
+                    <ik-upload fileName="product_main" [useUniqueFileName]="true"
+                    (onSuccess)="uploadMainImageSuccess($event)" (onError)="uploadMainImageError($event)" class="field" folder="products" [hidden]="isSubmitted"></ik-upload>
+
+                  </div>
+
+                </mat-list-item>
+              </mat-list>
+            </div>
+
           </div>
 
           <div class="action-block">
             <button type="submit"
             mat-raised-button color="primary"
             [disabled]="isSubmitted || !form.valid"> Update </button>
-            <mat-spinner [diameter]="20" class="ms-2" *ngIf="isSubmitted && form.valid"></mat-spinner>
+            <mat-spinner [diameter]="20" class="ms-2" *ngIf="isSubmitted && 'form.valid'"></mat-spinner>
           </div>
         </form>
       </mat-card-content>

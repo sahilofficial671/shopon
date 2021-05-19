@@ -4,8 +4,10 @@ import { AdminProductListComponent } from './admin-product-list/admin-product-li
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/shared/modules/material/material.module';
 import { AdminProductUpdateComponent } from './admin-product-update/admin-product-update.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminProductCreateComponent } from './admin-product-create/admin-product-create.component';
+import { ImagekitioAngularModule } from 'imagekitio-angular';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -18,7 +20,13 @@ import { AdminProductCreateComponent } from './admin-product-create/admin-produc
     CommonModule,
     RouterModule,
     MaterialModule,
+    FormsModule,
     ReactiveFormsModule,
+    ImagekitioAngularModule.forRoot({
+      publicKey: "public_GWTw+oFONUB4JSW7wrc1ADXTmHE=",
+      urlEndpoint : "https://ik.imagekit.io/webiggle/",
+      authenticationEndpoint: "https://secure.webiggle.com/imagekit/auth"
+    })
   ],
   exports: [
     AdminProductListComponent,

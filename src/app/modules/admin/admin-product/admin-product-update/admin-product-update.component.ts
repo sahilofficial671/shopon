@@ -3,7 +3,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipList } from '@angular/material/chips';
+import { MatList, MatListModule } from '@angular/material/list';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { ImagekitService } from 'imagekitio-angular/imagekitio-angular/imagekit.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -11,6 +13,7 @@ import { CategoryService } from 'src/app/core/services/category.service';
 import { ProductService } from 'src/app/core/services/product.service';
 import { Category } from 'src/app/shared/models/category.model';
 import { Product } from 'src/app/shared/models/product.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-admin-product-update',
@@ -21,12 +24,12 @@ export class AdminProductUpdateComponent implements OnInit {
 
   id:string;
   product:Product;
-  isSubmitted:boolean = false;
-  isLoaded:boolean = false;
+  isSubmitted:boolean;
+  isLoaded:boolean;
 
   filteredCategories: Observable<Object[]>;
-  categoriesToShow:Category[] = [];
-  categoryList:Category[] = [];
+  categoriesToShow:Category[];
+  categoryList:Category[];
 
   visible = true;
   selectable = true;
@@ -35,7 +38,11 @@ export class AdminProductUpdateComponent implements OnInit {
 
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('chipList') chipList: MatChipList;
-  categoryControl = new FormControl();
+  categoryControl:FormControl;
+
+  mainImagePath:string;
+  imagePrefix: string;
+  noImagePath:string;
 
   form:FormGroup = new FormGroup({
     name: new FormControl('', [
@@ -56,6 +63,9 @@ export class AdminProductUpdateComponent implements OnInit {
     slug: new FormControl('', [
       Validators.required
     ]),
+    mainImagePath: new FormControl('', [
+      Validators.required
+    ]),
   });
 
 
@@ -63,12 +73,17 @@ export class AdminProductUpdateComponent implements OnInit {
     private route: ActivatedRoute,
     private toastr: ToastrService,
     private productService: ProductService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
   ) {
+    this.categoriesToShow = this.categoryList = [];
+    this.isSubmitted = this.isLoaded = false;
+    this.imagePrefix = environment.imageKitUrl;
+    this.noImagePath = environment.noImagePath
+    this.categoryControl = new FormControl();
+
     this.categoryService
     .getCategories()
     .subscribe(async data => {
-      console.log(data);
       let categories = this.categoryService.getCategoriesMappedToModel(data.categories);
 
       if(data.categories){
@@ -97,8 +112,8 @@ export class AdminProductUpdateComponent implements OnInit {
           this.isLoaded = true;
           this.product = this.productService.getProductsMappedToModel([data.product])[0];
 
-           // Initialize Categories to show on dom
-           this.product.categories.forEach(category => this.categoryList.push(category));
+          // Initialize Categories to show on dom
+          this.product.categories.forEach(category => this.categoryList.push(category));
 
           // Set form values
           this.form.get('name').setValue(this.product.name)
@@ -107,6 +122,11 @@ export class AdminProductUpdateComponent implements OnInit {
           this.form.get('price').setValue(this.product.price)
           this.form.get('specialPrice').setValue(this.product.specialPrice)
           this.form.get('slug').setValue(this.product.slug)
+          this.form.get('mainImagePath').setValue(this.product.mainImagePath);
+
+          this.mainImagePath = (this.product.mainImagePath)
+                                ? this.imagePrefix + this.product.mainImagePath
+                                : this.noImagePath;
         }
       }, err => {
         console.log(err);
@@ -144,6 +164,7 @@ export class AdminProductUpdateComponent implements OnInit {
 
   update(){
     if(this.form.valid){
+
       this.form.disable()
       this.categoryControl.disable()
       this.chipList.chips.forEach((chip) => {chip.disabled = true})
@@ -158,6 +179,7 @@ export class AdminProductUpdateComponent implements OnInit {
       product.price = this.form.get('price').value;
       product.specialPrice = this.form.get('specialPrice').value;
       product.slug = this.form.get('slug').value;
+      product.mainImagePath = this.form.get('mainImagePath').value;
       product.categories = this.categoryList;
 
       this.productService
@@ -189,5 +211,14 @@ export class AdminProductUpdateComponent implements OnInit {
         this.toastr.error("Something went wrong. Please try again later");
       })
     }
+  }
+
+  uploadMainImageSuccess(event){
+    this.form.get('mainImagePath').setValue(event.filePath);
+    this.mainImagePath = event.url
+  }
+
+  uploadMainImageError(event){
+    this.toastr.error("Unable to upload image to server. Please try again later.")
   }
 }

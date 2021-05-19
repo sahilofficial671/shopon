@@ -1,3 +1,4 @@
+import { environment } from "src/environments/environment";
 import { Category } from "./category.model";
 
 export class Product {
@@ -8,6 +9,7 @@ export class Product {
   specialPrice: number;
   quantity: number;
   slug: string;
+  mainImagePath: string;
   categories:Array<Category>;
   createdAt: string;
   updatedAt: string;

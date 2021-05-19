@@ -51,6 +51,7 @@ export class ProductService {
       product.price = products[index].price;
       product.specialPrice = products[index].specialPrice;
       product.slug = products[index].slug;
+      product.mainImagePath = products[index].mainImagePath;
       product.createdAt = products[index].createdAt;
       product.updatedAt = products[index].updatedAt;
       product.categories = [];

@@ -1,8 +1,7 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import {MatChipInputEvent, MatChipList} from '@angular/material/chips';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import {MatChipList} from '@angular/material/chips';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';
@@ -11,7 +10,7 @@ import { ProductService } from 'src/app/core/services/product.service';
 import { Category } from 'src/app/shared/models/category.model';
 import { Product } from 'src/app/shared/models/product.model';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { MatFormField } from '@angular/material/form-field';
+import { environment } from 'src/environments/environment';
 
 
 export interface CategoryDom {
@@ -45,6 +44,9 @@ export class AdminProductCreateComponent implements OnInit {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
+  mainImagePath:string;
+  noImagePath:string;
+
   form:FormGroup = new FormGroup({
     name: new FormControl('', [
       Validators.required
@@ -64,6 +66,9 @@ export class AdminProductCreateComponent implements OnInit {
     slug: new FormControl('', [
       Validators.required
     ]),
+    mainImageControl: new FormControl('', [
+      Validators.required
+    ]),
   });
 
   categoryControl = new FormControl();
@@ -73,10 +78,12 @@ export class AdminProductCreateComponent implements OnInit {
     private productService: ProductService,
     private categoryService: CategoryService
   ) {
+    this.noImagePath = environment.noImagePath
+    this.mainImagePath = this.noImagePath;
+
     this.categoryService
     .getCategories()
     .subscribe(async data => {
-      console.log(data);
       if(data.categories){
         this.categories = this.categoryService.getCategoriesMappedToModel(data.categories);
       }
@@ -95,6 +102,7 @@ export class AdminProductCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.filteredCategories = this.categoryControl.valueChanges.pipe(
       startWith(''),
       map((category: string | Category | null) => category ? this._filter(category) : this.categoriesToShow.slice()));
@@ -115,6 +123,7 @@ export class AdminProductCreateComponent implements OnInit {
       product.price = this.form.get('price').value;
       product.specialPrice = this.form.get('specialPrice').value;
       product.slug = this.form.get('slug').value;
+      product.mainImagePath = this.form.get('mainImageControl').value;
       product.categories = this.categoryList;
 
       this.productService
@@ -165,6 +174,15 @@ export class AdminProductCreateComponent implements OnInit {
   private _filter(value: string|Category): Category[] {
     const searchFor = (value instanceof Category) ? value.name.toLowerCase() : value;
     return this.categoriesToShow.filter(category => category.name.toLowerCase().indexOf(searchFor) === 0);
+  }
+
+  uploadMainImageSuccess(event){
+    this.form.get('mainImageControl').setValue(event.filePath);
+    this.mainImagePath = event.url
+  }
+
+  uploadMainImageError(event){
+    this.toastr.error("Unable to upload image to server. Please try again later.")
   }
 }
 

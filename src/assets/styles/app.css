@@ -85,6 +85,11 @@ table{
   word-break: keep-all;
 }
 
+table img{
+  max-width: 50px;
+  max-height: 50px;
+}
+
 /** Table ends */
 
 /** Sidenav starts */
@@ -111,30 +116,52 @@ app-admin-login mat-card{
   max-width: 350px;
 }
 
-/* .menu-button {
-  transition: 300ms ease-in-out;
-  transform: rotate(0deg);
-}
-
-.menu-button.rotated {
-  transform: rotate(180deg);
-} */
-
-
-/* .submenu {
-  overflow-y: hidden;
-  transition: transform 300ms ease;
-  transform: scaleY(0);
-  transform-origin: top;
-  padding-left: 30px;
-}
-
-.submenu.expanded {
-  transform: scaleY(1);
-} */
-
 .action-block{
   display: flex;
   align-items: center;
 }
 
+form mat-list .has-image-uploader{
+  display: flex;
+  align-items: start;
+}
+
+form .images-block{
+  margin-bottom: 6rem;
+}
+
+form mat-list .has-image-uploader.has-image{
+  margin-top: 72px;
+}
+
+form mat-list .has-image-uploader ik-upload input{
+  cursor: pointer;
+}
+
+form mat-list .has-image-uploader .image img, form mat-list .has-image-uploader .image{
+  max-width: 125px;
+  max-height: 125px;
+}
+
+form mat-list .has-image-uploader .mat-list-item-content {
+  align-items: start !important;
+}
+
+form mat-list .has-image-uploader .content{
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+form mat-list .has-image-uploader mat-icon{
+  margin-right: 12px;
+}
+
+form mat-list .has-image-uploader.has-image ik-image{
+  position: absolute;
+}
+
+form mat-list .has-image-uploader ik-upload.field{
+  position: absolute;
+  opacity: 0;
+}
