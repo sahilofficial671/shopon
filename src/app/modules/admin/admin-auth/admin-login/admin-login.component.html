@@ -1,7 +1,7 @@
 <mat-card class="card">
   <mat-card-title class="card-header">Admin Login</mat-card-title>
   <mat-card-content class="card-body">
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form [formGroup]="form" (ngSubmit)="login()">
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input type="text" matInput placeholder="Email" formControlName="email" name="email">
@@ -51,7 +51,7 @@
         <button type="submit"
         mat-raised-button color="primary"
         [disabled]="isSubmitted || !form.valid"> Login </button>
-        <mat-spinner [diameter]="20" class="ms-2" *ngIf="isSubmitted && form.valid"></mat-spinner>
+        <mat-spinner [diameter]="20" class="ms-2" *ngIf="isSubmitted && 'form.valid'"></mat-spinner>
       </div>
     </form>
   </mat-card-content>

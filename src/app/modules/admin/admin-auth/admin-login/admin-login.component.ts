@@ -55,7 +55,7 @@ export class AdminLoginComponent implements OnInit {
     },
   };
 
-  submit() {
+  login() {
     if(this.form.valid){
       this.isSubmitted = true;
       this.form.disable();
