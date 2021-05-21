@@ -12,6 +12,7 @@ import { map, startWith } from 'rxjs/operators';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { ProductService } from 'src/app/core/services/product.service';
 import { Category } from 'src/app/shared/models/category.model';
+import { ProductImage } from 'src/app/shared/models/product-image.model';
 import { Product } from 'src/app/shared/models/product.model';
 import { environment } from 'src/environments/environment';
 
@@ -43,6 +44,13 @@ export class AdminProductUpdateComponent implements OnInit {
   mainImagePath:string;
   imagePrefix: string;
   noImagePath:string;
+  images:ProductImage[];
+  image_1_path:string;
+  image_2_path:string;
+  image_3_path:string;
+  image_1:string;
+  image_2:string;
+  image_3:string;
 
   form:FormGroup = new FormGroup({
     name: new FormControl('', [
@@ -75,11 +83,15 @@ export class AdminProductUpdateComponent implements OnInit {
     private productService: ProductService,
     private categoryService: CategoryService,
   ) {
-    this.categoriesToShow = this.categoryList = [];
+    this.categoryList = [];
+    this.categoriesToShow = [];
+    this.images = [];
+
     this.isSubmitted = this.isLoaded = false;
     this.imagePrefix = environment.imageKitUrl;
-    this.noImagePath = environment.noImagePath
+    this.noImagePath = this.image_1_path = this.image_2_path = this.image_3_path = environment.noImagePath
     this.categoryControl = new FormControl();
+    this.image_1 = this.image_2 = this.image_3 = null;
 
     this.categoryService
     .getCategories()
@@ -127,6 +139,22 @@ export class AdminProductUpdateComponent implements OnInit {
           this.mainImagePath = (this.product.mainImagePath)
                                 ? this.imagePrefix + this.product.mainImagePath
                                 : this.noImagePath;
+
+          // Set Extra Images
+          if(this.product.images[0] != undefined){
+            this.image_1_path = this.imagePrefix + this.product.images[0].path
+            this.image_1 = this.product.images[0].path
+          }
+
+          if(this.product.images[1] != undefined){
+            this.image_2_path = this.imagePrefix + this.product.images[1].path
+            this.image_2 = this.product.images[1].path
+          }
+
+          if(this.product.images[2] != undefined){
+            this.image_3_path = this.imagePrefix + this.product.images[2].path
+            this.image_3 = this.product.images[2].path
+          }
         }
       }, err => {
         console.log(err);
@@ -164,6 +192,19 @@ export class AdminProductUpdateComponent implements OnInit {
 
   update(){
     if(this.form.valid){
+      var images = [];
+
+      if(this.image_1 !== null && this.image_2 !== this.noImagePath){
+        images = [new ProductImage(this.image_1)]
+        if(this.image_2 !== null && this.image_2 !== this.noImagePath){
+          images = [new ProductImage(this.image_1), new ProductImage(this.image_2)]
+          if(this.image_3 !== null && this.image_3 !== this.noImagePath){
+            images = [new ProductImage(this.image_1), new ProductImage(this.image_2),  new ProductImage(this.image_3)]
+          }
+        }
+      }
+
+      this.images = images;
 
       this.form.disable()
       this.categoryControl.disable()
@@ -181,6 +222,7 @@ export class AdminProductUpdateComponent implements OnInit {
       product.slug = this.form.get('slug').value;
       product.mainImagePath = this.form.get('mainImagePath').value;
       product.categories = this.categoryList;
+      product.images = this.images;
 
       this.productService
       .updateProduct(product)
@@ -219,6 +261,29 @@ export class AdminProductUpdateComponent implements OnInit {
   }
 
   uploadMainImageError(event){
+    this.toastr.error("Unable to upload image to server. Please try again later.")
+  }
+
+  uploadImageSuccess(event, image){
+
+    if(image == 'image_1'){
+      this.image_1 = event.filePath
+      this.image_1_path = event.url
+    }
+
+    if(image == 'image_2'){
+      this.image_2 = event.filePath
+      this.image_2_path = event.url
+    }
+
+    if(image == 'image_3'){
+      this.image_3 = event.filePath
+      this.image_3_path = event.url
+    }
+
+  }
+
+  uploadImageError(event){
     this.toastr.error("Unable to upload image to server. Please try again later.")
   }
 }

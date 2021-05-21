@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 import { Category } from 'src/app/shared/models/category.model';
+import { ProductImage } from 'src/app/shared/models/product-image.model';
 import { Product } from 'src/app/shared/models/product.model';
 import { environment } from 'src/environments/environment';
 import { ApiService } from '../api.service';
@@ -54,6 +55,12 @@ export class ProductService {
       product.mainImagePath = products[index].mainImagePath;
       product.createdAt = products[index].createdAt;
       product.updatedAt = products[index].updatedAt;
+      product.images = [];
+
+      for(let imageIndex in products[index].images){
+        product.images.push(new ProductImage(products[index].images[imageIndex].path));
+      }
+
       product.categories = [];
       for(let catIndex in products[index].categories){
         let category = new Category();
@@ -64,6 +71,7 @@ export class ProductService {
         category.updatedAt = products[index].categories[catIndex].updatedAt;
         product.categories.push(category)
       }
+
       this.products.push(product);
     }
 

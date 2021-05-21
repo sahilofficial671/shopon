@@ -102,15 +102,33 @@
               </mat-form-field>
             </div>
 
-            <div class="col-sm-6 col-xs-6 images-block">
-              <mat-list>
-                <div mat-subheader>Main Image</div>
-                <mat-list-item>
-                  <div class="has-image-uploader has-image">
+            <div class="col-xs-6 col-md-12 images-block">
+              <div mat-subheader>Main Image</div>
+              <div class="has-image-uploader has-image">
+                <div class="image">
+                  <input type="text" formControlName="mainImagePath" value="" name="mainImagePath" [hidden]="true">
+                  <img [src]="mainImagePath"  alt="">
+                </div>
 
+                <div class="content">
+                  <mat-icon mat-list-icon>image</mat-icon>
+                  <div mat-line disable="true">Choose File</div>
+                </div>
+
+                <ik-upload fileName="product_main" [useUniqueFileName]="true"
+                (onSuccess)="uploadMainImageSuccess($event)" (onError)="uploadMainImageError($event)" class="field" folder="products" [hidden]="isSubmitted"></ik-upload>
+              </div>
+            </div>
+
+            <div class="col-md-12 col-xs-6 images-block">
+              <div mat-subheader>Extra Images</div>
+              <div class="row">
+
+                <div class="col-lg-4 col-md-6 col-xs-12 mb-3">
+                  <div class="has-image-uploader has-image">
                     <div class="image">
-                      <input type="text" formControlName="mainImageControl" value="" name="mainImageControl" [hidden]="true">
-                      <img [src]="mainImagePath"  alt="">
+                      <input type="text" formControlName="mainImagePath" value="" name="mainImagePath" [hidden]="true">
+                      <img [src]="image_1_path"  alt="">
                     </div>
 
                     <div class="content">
@@ -119,13 +137,46 @@
                     </div>
 
                     <ik-upload fileName="product_main" [useUniqueFileName]="true"
-                    (onSuccess)="uploadMainImageSuccess($event)" (onError)="uploadMainImageError($event)" class="field" folder="products" [hidden]="isSubmitted"></ik-upload>
-
+                    (onSuccess)="uploadImageSuccess($event, 'image_1')" (onError)="uploadImageError($event)" class="field" folder="products" [hidden]="isSubmitted" id="image_1"></ik-upload>
                   </div>
+                </div>
 
-                </mat-list-item>
-              </mat-list>
-            </div>
+                <div class="col-lg-4 col-md-6 col-xs-12 mb-3">
+                  <div class="has-image-uploader has-image">
+                    <div class="image">
+                      <input type="text" formControlName="mainImagePath" value="" name="mainImagePath" [hidden]="true">
+                      <img [src]="image_2_path"  alt="">
+                    </div>
+
+                    <div class="content">
+                      <mat-icon mat-list-icon>image</mat-icon>
+                      <div mat-line disable="true">Choose File</div>
+                    </div>
+
+                    <ik-upload fileName="product_main" [useUniqueFileName]="true"
+                    (onSuccess)="uploadImageSuccess($event, 'image_2')" (onError)="uploadImageError($event)" class="field" folder="products" [hidden]="isSubmitted" id="image_2"></ik-upload>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-xs-12 mb-3">
+                  <div class="has-image-uploader has-image">
+                    <div class="image">
+                      <input type="text" formControlName="mainImagePath" value="" name="mainImagePath" [hidden]="true">
+                      <img [src]="image_3_path"  alt="">
+                    </div>
+
+                    <div class="content">
+                      <mat-icon mat-list-icon>image</mat-icon>
+                      <div mat-line disable="true">Choose File</div>
+                    </div>
+
+                    <ik-upload fileName="product_main" [useUniqueFileName]="true"
+                    (onSuccess)="uploadImageSuccess($event, 'image_3')" (onError)="uploadImageError($event)" class="field" folder="products" [hidden]="isSubmitted" id="image_3"></ik-upload>
+                  </div>
+                </div>
+
+              </div>
+            </div> <!-- end extra images -->
 
           </div>
 

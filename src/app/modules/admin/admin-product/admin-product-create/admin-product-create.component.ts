@@ -11,6 +11,7 @@ import { Category } from 'src/app/shared/models/category.model';
 import { Product } from 'src/app/shared/models/product.model';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { environment } from 'src/environments/environment';
+import { ProductImage } from 'src/app/shared/models/product-image.model';
 
 
 export interface CategoryDom {
@@ -46,6 +47,13 @@ export class AdminProductCreateComponent implements OnInit {
 
   mainImagePath:string;
   noImagePath:string;
+  images:ProductImage[];
+  image_1_path:string;
+  image_2_path:string;
+  image_3_path:string;
+  image_1:string;
+  image_2:string;
+  image_3:string;
 
   form:FormGroup = new FormGroup({
     name: new FormControl('', [
@@ -66,7 +74,7 @@ export class AdminProductCreateComponent implements OnInit {
     slug: new FormControl('', [
       Validators.required
     ]),
-    mainImageControl: new FormControl('', [
+    mainImagePath: new FormControl('', [
       Validators.required
     ]),
   });
@@ -78,8 +86,11 @@ export class AdminProductCreateComponent implements OnInit {
     private productService: ProductService,
     private categoryService: CategoryService
   ) {
-    this.noImagePath = environment.noImagePath
-    this.mainImagePath = this.noImagePath;
+    this.categoryList = [];
+    this.categoriesToShow = [];
+    this.images = [];
+    this.mainImagePath = this.noImagePath = this.image_1_path = this.image_2_path = this.image_3_path = environment.noImagePath
+    this.image_1 = this.image_2 = this.image_3 = null;
 
     this.categoryService
     .getCategories()
@@ -102,7 +113,6 @@ export class AdminProductCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.filteredCategories = this.categoryControl.valueChanges.pipe(
       startWith(''),
       map((category: string | Category | null) => category ? this._filter(category) : this.categoriesToShow.slice()));
@@ -110,6 +120,19 @@ export class AdminProductCreateComponent implements OnInit {
 
   create(){
     if(this.form.valid){
+      var images = [];
+
+      if(this.image_1 !== null && this.image_2 !== this.noImagePath){
+        images = [new ProductImage(this.image_1)]
+        if(this.image_2 !== null && this.image_2 !== this.noImagePath){
+          images = [new ProductImage(this.image_1), new ProductImage(this.image_2)]
+          if(this.image_3 !== null && this.image_3 !== this.noImagePath){
+            images = [new ProductImage(this.image_1), new ProductImage(this.image_2),  new ProductImage(this.image_3)]
+          }
+        }
+      }
+
+      this.images = images;
       this.form.disable()
       this.categoryControl.disable()
       this.chipList.chips.forEach((chip) => {chip.disabled = true})
@@ -123,8 +146,9 @@ export class AdminProductCreateComponent implements OnInit {
       product.price = this.form.get('price').value;
       product.specialPrice = this.form.get('specialPrice').value;
       product.slug = this.form.get('slug').value;
-      product.mainImagePath = this.form.get('mainImageControl').value;
+      product.mainImagePath = this.form.get('mainImagePath').value;
       product.categories = this.categoryList;
+      product.images = this.images;
 
       this.productService
       .submitProduct(product)
@@ -177,11 +201,32 @@ export class AdminProductCreateComponent implements OnInit {
   }
 
   uploadMainImageSuccess(event){
-    this.form.get('mainImageControl').setValue(event.filePath);
+    this.form.get('mainImagePath').setValue(event.filePath);
     this.mainImagePath = event.url
   }
 
   uploadMainImageError(event){
+    this.toastr.error("Unable to upload image to server. Please try again later.")
+  }
+
+  uploadImageSuccess(event, image){
+    if(image == 'image_1'){
+      this.image_1 = event.filePath
+      this.image_1_path = event.url
+    }
+
+    if(image == 'image_2'){
+      this.image_2 = event.filePath
+      this.image_2_path = event.url
+    }
+
+    if(image == 'image_3'){
+      this.image_3 = event.filePath
+      this.image_3_path = event.url
+    }
+  }
+
+  uploadImageError(event){
     this.toastr.error("Unable to upload image to server. Please try again later.")
   }
 }

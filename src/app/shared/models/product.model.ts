@@ -1,5 +1,5 @@
-import { environment } from "src/environments/environment";
 import { Category } from "./category.model";
+import { ProductImage } from "./product-image.model";
 
 export class Product {
   id: number;
@@ -10,7 +10,8 @@ export class Product {
   quantity: number;
   slug: string;
   mainImagePath: string;
-  categories:Array<Category>;
+  images:ProductImage[];
+  categories:Category[];
   createdAt: string;
   updatedAt: string;
 }

@@ -121,47 +121,62 @@ app-admin-login mat-card{
   align-items: center;
 }
 
-form mat-list .has-image-uploader{
+form .has-image-uploader{
   display: flex;
   align-items: start;
 }
 
 form .images-block{
-  margin-bottom: 6rem;
+  margin-bottom: 2rem;
 }
 
-form mat-list .has-image-uploader.has-image{
-  margin-top: 72px;
+form .extra-images .has-image-uploader{
+  display: inline-block;
+  padding-right: 24px;
 }
 
-form mat-list .has-image-uploader ik-upload input{
+form .extra-images .has-image-uploader .content{
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  margin-top: 10px;
+}
+
+form .extra-images .has-image-uploader ik-upload.field{
+  position: absolute;
+  opacity: 0;
+  bottom: 87px;
+  max-width: 111px;
+}
+
+form .has-image-uploader ik-upload input{
   cursor: pointer;
 }
 
-form mat-list .has-image-uploader .image img, form mat-list .has-image-uploader .image{
+form .has-image-uploader .image img, form .has-image-uploader .image{
   max-width: 125px;
   max-height: 125px;
 }
 
-form mat-list .has-image-uploader .mat-list-item-content {
+form .has-image-uploader -item-content {
   align-items: start !important;
 }
 
-form mat-list .has-image-uploader .content{
+form .has-image-uploader .content{
   display: flex;
   align-items: center;
   margin-left: 15px;
 }
 
-form mat-list .has-image-uploader mat-icon{
+form .has-image-uploader mat-icon{
   margin-right: 12px;
 }
 
-form mat-list .has-image-uploader.has-image ik-image{
+form .has-image-uploader.has-image ik-image{
   position: absolute;
 }
 
-form mat-list .has-image-uploader ik-upload.field{
+form .has-image-uploader ik-upload.field{
   position: absolute;
   opacity: 0;
 }
@@ -170,4 +185,13 @@ form mat-list .has-image-uploader ik-upload.field{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+form .mat-subheader{
+  color: rgba(0,0,0,.54);
+  font-weight: 500;
+  padding-bottom: 10px;
+  padding-left: 0px;
+  padding-right: 10px;
+  padding-top: 10px;
 }
