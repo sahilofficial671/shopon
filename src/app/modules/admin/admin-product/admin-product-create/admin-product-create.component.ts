@@ -196,7 +196,7 @@ export class AdminProductCreateComponent implements OnInit {
   }
 
   private _filter(value: string|Category): Category[] {
-    const searchFor = (value instanceof Category) ? value.name.toLowerCase() : value;
+    const searchFor = (value instanceof Category) ? value.name.toLowerCase() : value.toLowerCase();
     return this.categoriesToShow.filter(category => category.name.toLowerCase().indexOf(searchFor) === 0);
   }
 
