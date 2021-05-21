@@ -165,3 +165,9 @@ form mat-list .has-image-uploader ik-upload.field{
   position: absolute;
   opacity: 0;
 }
+
+.mat-icon-button.mat-mini-fab{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
