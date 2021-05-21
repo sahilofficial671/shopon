@@ -12,6 +12,7 @@ import { Product } from 'src/app/shared/models/product.model';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { environment } from 'src/environments/environment';
 import { ProductImage } from 'src/app/shared/models/product-image.model';
+import { Router } from '@angular/router';
 
 
 export interface CategoryDom {
@@ -84,11 +85,13 @@ export class AdminProductCreateComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     private productService: ProductService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private router: Router,
   ) {
     this.categoryList = [];
     this.categoriesToShow = [];
     this.images = [];
+
     this.mainImagePath = this.noImagePath = this.image_1_path = this.image_2_path = this.image_3_path = environment.noImagePath
     this.image_1 = this.image_2 = this.image_3 = null;
 
@@ -158,6 +161,7 @@ export class AdminProductCreateComponent implements OnInit {
           this.categoryControl.enable()
           this.chipList.chips.forEach((chip) => {chip.disabled = false})
           this.isSubmitted = false;
+          this.router.navigate(["/admin/products"])
           this.toastr.success(data.message);
         }
       }, err => {
