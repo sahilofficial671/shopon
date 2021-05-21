@@ -68,8 +68,8 @@
         </ng-container>
 
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="max-width:60px;" class="text-center"> ID. </th>
+          <td mat-cell *matCellDef="let element" style="max-width:60px;" class="text-center"> {{element.id}} </td>
         </ng-container>
 
         <ng-container matColumnDef="name">
@@ -79,8 +79,8 @@
 
 
         <ng-container matColumnDef="quantity">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
-          <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="max-width:60px;" class="text-center"> Qty </th>
+          <td mat-cell *matCellDef="let element" style="max-width:60px;" class="text-center"> {{element.quantity}} </td>
         </ng-container>
 
         <ng-container matColumnDef="price">
@@ -103,7 +103,7 @@
         </ng-container>
 
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="7" class="text-center">No data available.</td>
+          <td class="mat-cell" colspan="8" class="text-center">No data available.</td>
         </tr>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
