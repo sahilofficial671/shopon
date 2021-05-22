@@ -25,6 +25,10 @@ export class ProductService {
     return this.apiService.get(this.url+"/"+id);
   }
 
+  getProductBySlug(slug:string): Observable<any> {
+    return this.apiService.get(this.url+"/by/slug/"+slug);
+  }
+
   getProducts(): Observable<any> {
     return this.apiService.get(this.group_url);
   }

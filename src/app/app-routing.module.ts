@@ -8,25 +8,25 @@ import { AdminProductCreateComponent } from './modules/admin/admin-product/admin
 import { AdminProductListComponent } from './modules/admin/admin-product/admin-product-list/admin-product-list.component';
 import { AdminProductUpdateComponent } from './modules/admin/admin-product/admin-product-update/admin-product-update.component';
 import { TestComponent } from './modules/admin/test/test.component';
-import { FrontIndexComponent } from './modules/front/front-common/front-index/front-index.component';
+import { FrontHomeComponent } from './modules/front/front-home/front-home.component';
+import { FrontProductDetailComponent } from './modules/front/front-product/front-product-detail/front-product-detail.component';
 import { Error404Component } from './shared/errors/error404/error404.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "/", pathMatch: "full" },
 
   // Front routes
-  {path: "", component: FrontIndexComponent},
+  {path: "", component: FrontHomeComponent},
+  {path: "p/:slug", component: FrontProductDetailComponent},
 
   // Admin Routes
-  {
-    path: 'admin', canActivate: [GuestAdminGuard], children: [
+  { path: 'admin', canActivate: [GuestAdminGuard], children: [
       { path: "login", component:  AdminLoginComponent},
     ]
   },
 
   // Admin Protected Routes
-  {
-    path: 'admin', canActivate: [AdminGuard], children: [
+  { path: 'admin', canActivate: [AdminGuard], children: [
       { path: "dashboard", component:  AdminDashboardComponent},
       { path: "products", component:  AdminProductListComponent},
       { path: "product", children: [

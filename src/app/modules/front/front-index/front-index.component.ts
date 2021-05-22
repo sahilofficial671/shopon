@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { InstanceService } from 'src/app/core/services/instance.service';
@@ -11,35 +11,12 @@ import { InstanceService } from 'src/app/core/services/instance.service';
 })
 export class FrontIndexComponent implements OnInit {
 
-  isExpanded = true;
-  showSubmenu: boolean = false;
-  isShowing = false;
-  showSubSubMenu: boolean = false;
-
   constructor(private router: Router,
+    private route: ActivatedRoute,
     private authService: AuthService,
     private instanceService: InstanceService,
     private toastr: ToastrService,
     ) { }
 
-  ngOnInit(): void {
-  }
-
-  links = [
-    {"url":"/", "name": "Home"},
-  ];
-
-  isAdmin():boolean{
-    if(this.router.url.startsWith("admin")){
-      return true;
-    }
-    return false;
-  }
-
-  adminLoggedIn():boolean{
-    return this.authService.hasAuth()
-    && this.instanceService.getAuthUser()
-    && this.instanceService.getAuthUser().hasRoleAdmin();
-  }
-
+  ngOnInit(): void { }
 }

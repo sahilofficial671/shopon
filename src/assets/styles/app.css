@@ -14,7 +14,7 @@
   width: auto;
 }
 
-.toolbar .actions, .card-header .actions{
+.toolbar .actions, .card-header .actions, .toolbar .actions .action .action-container{
   display: flex;
   align-items: center;
 }
@@ -24,6 +24,9 @@
   display: flex;
   align-content: center;
   padding: 0 1.25rem;
+}
+.front .toolbar .actions .action{
+  padding: 0px;
 }
 
 .toolbar .actions .action.user-action{
@@ -112,6 +115,12 @@ table img{
   width: 100%;
 }
 
+.mat-icon-button.mat-mini-fab{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 app-admin-login mat-card{
   max-width: 350px;
 }
@@ -120,6 +129,8 @@ app-admin-login mat-card{
   display: flex;
   align-items: center;
 }
+
+/** Form start */
 
 form .has-image-uploader{
   display: flex;
@@ -181,12 +192,6 @@ form .has-image-uploader ik-upload.field{
   opacity: 0;
 }
 
-.mat-icon-button.mat-mini-fab{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 form .mat-subheader{
   color: rgba(0,0,0,.54);
   font-weight: 500;
@@ -195,3 +200,142 @@ form .mat-subheader{
   padding-right: 10px;
   padding-top: 10px;
 }
+
+/** Form end */
+
+/** Menu start */
+
+.toolbar .menu-items{
+  display: flex;
+  align-items: center;
+}
+
+/** Menu end */
+
+.front .actions .action .icon{
+  margin-right: 10px;
+}
+
+/** Front start */
+
+.layout.front .main-container{
+  padding: 0px;
+}
+
+.front .info-block{
+  background: #fff;
+  padding: 15px 0px;
+}
+
+.front .block{
+  background: #fff;
+  border: 1px solid #e0e6ef;
+}
+
+.front .block{
+  padding: 15px 20px;
+}
+
+.front .block.with-image1{
+  background: url(https://pisces.bbystatic.com/image2/BestBuy_US/dam/ghp-MMT-416248-appls-memday-c51b535f-39c5-4fd9-b84a-6cfdf43f604b.jpg);
+  min-height: 600px;
+  background-position: top center;
+  background-size: cover;
+}
+
+.front .b-row{
+  margin-bottom:15px;
+}
+
+.front .carousel-block .title-container.with-sub .title-head, .front .title-container.with-sub .title-head{
+  margin: 0 0 5px;
+}
+
+.front .carousel-block .title-container .title-sub, .form .title-container .title-sub{
+  font-size: 14px;
+}
+
+.front .carousel-block .title-container, .front .product-image-cards .product-card.horizontal .name{
+  margin-bottom: 15px;
+}
+
+.front .product-image-cards{
+  display: flex;
+  align-items: flex-start;
+}
+
+.front .product-image-cards .product-card:hover img{
+  margin-top: -5px;
+}
+
+.front .product-image-cards .product-card{
+  padding: 15px 20px;
+  font-size: .9375rem;
+  line-height: 1.25rem;
+}
+
+
+.front .product-image-cards.medium .product-card .name{
+  white-space: nowrap;
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.front .product-image-cards.medium .product-card{
+  max-width: 200px;
+}
+
+.front .product-image-cards.special {
+  width: 100%;
+}
+
+.front .highlight-red{
+  background-color: #d70505;
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 2px;
+}
+
+.front .product-image-cards .product-card .image{
+  margin-bottom: 15px;
+  transition: all .2s ease-in-out;
+  min-height: 150px;
+}
+
+.front .product-image-cards .product-card a{
+  text-decoration: none;
+  color: #222b45;
+}
+
+.front .product-image-cards .product-card a:hover{
+  text-decoration: underline;
+  color:blue;
+}
+
+.front .product-image-cards .product-card .price-block{
+  display: flex;
+}
+
+.front .product-image-cards .product-card .special-price{
+  text-decoration: line-through;
+  color: #868686;
+  font-size: 14px;
+}
+
+.front .product-image-cards .product-card .price{
+  padding-left: 3px;
+  font-weight: 500;
+}
+
+.front .product-image-cards .product-card.horizontal .price{
+  font-size: 22px;
+}
+
+.front .product-image-cards .image img{
+  max-width: 150px;
+  max-height: 150px;
+  transition: all .2s ease-in-out;
+}
+
+/** Front end */

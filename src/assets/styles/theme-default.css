@@ -7,6 +7,10 @@
   min-height: 100vh;
 }
 
+.theme-default .front.layout .main-container{
+  min-height: 105vh;
+}
+
 .theme-default .card{
   background-color: #fff;
   border: .0625rem solid #e4e9f2;
@@ -107,3 +111,13 @@ form .mat-form-field{
 .mat-form-field-subscript-wrapper {
   font-size: 78%;
 }
+
+/** Front start */
+
+.theme-default .front .carousel-block .title-container .title-head{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+/** Front ends */

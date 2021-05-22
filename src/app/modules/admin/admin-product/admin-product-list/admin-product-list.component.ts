@@ -31,7 +31,6 @@ export class AdminProductListComponent implements OnInit {
   noImagePath:string;
 
   constructor(private router: Router,
-    private route: ActivatedRoute,
     private toastr: ToastrService,
     private productService: ProductService,
   ) {

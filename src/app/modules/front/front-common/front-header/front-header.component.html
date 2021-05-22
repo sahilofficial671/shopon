@@ -1,0 +1,56 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="toolbar">
+    <div class="toolbar-left">
+      <a mat-button [routerLink]="'/home'"><h1>Shopon</h1></a>
+      <span class="menu-spacer"></span>
+      <div class="menu-items">
+        <div class="menu" *ngFor="let menu of menus">
+
+          <div class="menu-parent with-child" *ngIf="menu.children != null">
+            <a mat-button [matMenuTriggerFor]="menuItem">{{menu.name}}</a>
+            <mat-menu #menuItem="matMenu" xPosition="before" [ngClass]="menu.children == null ? 'hidden' : ''">
+              <a mat-menu-item [routerLink]="'c/'+child.url" *ngFor="let child of menu.children">{{ child.name }}</a>
+            </mat-menu>
+          </div>
+
+          <div class="menu-parent" *ngIf="menu.children == null">
+            <a mat-button [href]="menu.url">{{menu.name}}</a>
+          </div>
+        </div>
+      </div> <!-- close menu item -->
+
+    </div> <!-- close toolbar left -->
+    <span class="spacer"></span>
+
+    <div class="toolbar-right">
+      <div class="actions">
+        <div class="action" *ngFor="let action of actions">
+
+          <button mat-button *ngIf="action.children == null" [routerLink]="action.url">
+            <div mat-button class="d-flex align-items-center">
+              <mat-icon class="icon"> {{action.icon}}</mat-icon>
+              <div class="content">
+                <div class="label">{{action.name}}</div>
+              </div>
+            </div>
+          </button>
+
+          <button mat-button *ngIf="action.children !== null" >
+            <div class="d-flex align-items-center">
+              <mat-icon class="icon"> {{action.icon}}</mat-icon>
+              <div class="content">
+                <span class="label" [matMenuTriggerFor]="actionItem">{{action.name}}</span>
+                <mat-menu #actionItem="matMenu" xPosition="before">
+                  <button mat-menu-item [routerLink]="child.url" *ngFor="let child of action.children">
+                    <mat-icon>lock_outline</mat-icon>{{ child.name }}
+                  </button>
+                </mat-menu>
+              </div>
+            </div>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
