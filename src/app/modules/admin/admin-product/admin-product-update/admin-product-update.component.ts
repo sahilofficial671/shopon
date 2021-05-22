@@ -159,9 +159,17 @@ export class AdminProductUpdateComponent implements OnInit {
       }, err => {
         console.log(err);
         this.isLoaded = true;
-        (err.status == 'error' && err.message != null)
-        ? this.toastr.error(err.message)
-        : this.toastr.error("Something went wrong. Please try again later");
+        if(err.status == 'error' && err.message != null){
+          this.toastr.error(err.message)
+          return;
+        }
+
+        if(err.errors && err.errors.length > 0 && err.errors[0].defaultMessage != null){
+          this.toastr.error(err.errors[0].defaultMessage)
+          return;
+        }
+
+        this.toastr.error("Something went wrong. Please try again later");
       });
 
       this.filteredCategories = this.categoryControl.valueChanges.pipe(
