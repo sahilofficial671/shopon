@@ -31,10 +31,7 @@ export class FrontProductSliderComponent implements OnInit {
     .toPromise()
     .then((data) => {
       this.products = this.productService.getProductsMappedToModel(data.products);
-
       this.isLoaded = true;
-      console.log(this.products);
-
     }).catch((err) => {
       console.log(err);
       this.isLoaded = true;

@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { ProductService } from 'src/app/core/services/product.service';
 import { Product } from 'src/app/shared/models/product.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-front-product-detail',
@@ -14,6 +15,9 @@ export class FrontProductDetailComponent implements OnInit {
 
   slug:string;
   product:Product;
+  images:Object[];
+  imagePrefix:string;
+  noImagePath:string;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,6 +25,10 @@ export class FrontProductDetailComponent implements OnInit {
     private productService: ProductService,
     private categoryService: CategoryService,
   ) {
+    this.imagePrefix = environment.imageKitUrl;
+    this.noImagePath = environment.noImagePath
+    this.images = [];
+
     this.slug = this.route.snapshot.paramMap.get('slug');
     this.productService
       .getProductBySlug(this.slug)
@@ -28,7 +36,26 @@ export class FrontProductDetailComponent implements OnInit {
       .then((data) => {
         if(data.status == 'success' && data.product){
           this.product = this.productService.getProductsMappedToModel([data.product])[0];
-          console.log(this.product);
+          // console.log(this.product);
+
+          if(this.product.images.length > 0){
+            this.product.images.forEach((image) => {
+              this.images.push({
+                image: this.imagePrefix + image.path,
+                thumbImage: this.imagePrefix + image.path,
+              });
+            });
+          }
+
+          if(this.product.images.length == 0){
+            this.images.push({
+              image: this.noImagePath,
+              thumbImage: this.noImagePath,
+            });
+          }
+
+
+          console.log(this.images);
           return;
         }
 
@@ -47,6 +74,7 @@ export class FrontProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
 }

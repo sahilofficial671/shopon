@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FrontProductSliderComponent } from './front-product-slider/front-product-slider.component';
 import { FrontProductSpecialComponent } from './front-product-special/front-product-special.component';
 import { FrontProductDetailComponent } from './front-product-detail/front-product-detail.component';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { FrontProductDetailComponent } from './front-product-detail/front-produc
   imports: [
     RouterModule,
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    NgImageSliderModule,
   ],
   exports: [
     FrontProductSliderComponent,

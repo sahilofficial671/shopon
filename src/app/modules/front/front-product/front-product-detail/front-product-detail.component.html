@@ -1,3 +1,68 @@
-<div class="container-row">
+<div class="container-fluid pt-5">
+  <div class="row product-container">
 
+    <div class="col-md-7 col-xs-12">
+      <div class="block product-block-1" *ngIf="product != undefined">
+        <div class="product-title-container title-container">
+          <div class="category-name">{{product.categories[0].name}}</div>
+          <h1 class="product-name title-head">{{ product.name }}</h1>
+          <div class="product-id"><span class="head">Product ID:</span>{{ product.id }}</div>
+        </div>
+
+        <div class="product-media-container">
+          <div class="image-container">
+            <ng-image-slider [images]="images" manageImageRatio="true" #nav></ng-image-slider>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-md-5 col-xs-12 ">
+      <div class="block product-block-2" *ngIf="product != undefined">
+        <div class="price-block">
+          <div class="currency">Rs.</div>
+          <div class="price">{{product.price}}</div>
+          <div class="special-price">{{product.specialPrice}}</div>
+          <span class="highlight-red ms-2">SALE</span>
+        </div>
+
+        <div class="info-block">
+          <ul>
+            <li>
+              <div class="info">
+                <mat-icon class="icon">shopping_cart</mat-icon>
+                <div class="content">
+                  <div class="head">15-DAY FREE & EASY RETURNS</div>
+                  <div class="sub">You get 15 days to return or exchange this item. Learn more</div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="buy-block actions">
+          <div class="action add-to-cart">
+            <button mat-raised-button color="primary">
+              <div class="d-flex align-items-center">
+                <mat-icon class="icon">shopping_basket</mat-icon>
+                <div class="content">Add to Cart</div>
+              </div>
+            </button>
+          </div>
+          <div class="action">
+            <button mat-raised-button color="primary">
+              <div class="d-flex align-items-center">
+                <mat-icon class="icon">lock</mat-icon>
+                <div class="content">Buy</div>
+              </div>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
 </div>

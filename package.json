@@ -23,6 +23,7 @@
     "@angular/router": "~11.2.11",
     "bootstrap": "^5.0.0",
     "imagekitio-angular": "^1.0.2",
+    "ng-image-slider": "^2.8.0",
     "ngx-toastr": "^13.2.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
