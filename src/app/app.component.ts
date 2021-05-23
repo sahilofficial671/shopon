@@ -30,10 +30,4 @@ export class AppComponent {
   ngOnInit(): void {
 
   }
-
-  isLogged():boolean{
-    return this.authService.hasAuth()
-    && this.instanceService.getAuthUser()
-    && this.instanceService.getAuthUser().hasRoleAdmin();
-  }
 }

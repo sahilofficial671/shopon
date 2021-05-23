@@ -1,0 +1,25 @@
+<div class="container customer">
+  <div class="container-fluid customer-container">
+
+      <div class="row">
+        <div class="col-sm-9 col-xs-12 offset-sm-2">
+          <div class="actions">
+
+            <button mat-button color="primary" class="action" *ngFor="let action of actions" [routerLink]="action.url">
+              <div class="text-center">
+                <mat-icon class="icon">{{action.icon}}</mat-icon>
+                <div class="label">{{action.name}}</div>
+              </div>
+            </button>
+
+          </div>
+
+          <div class="customer-content">
+            <router-outlet></router-outlet>
+          </div>
+
+        </div>
+      </div>
+  </div>
+</div>
+

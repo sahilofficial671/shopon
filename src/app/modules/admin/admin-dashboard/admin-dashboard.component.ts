@@ -14,7 +14,7 @@ export class AdminDashboardComponent implements OnInit {
   constructor(private instanceService: InstanceService) { }
 
   ngOnInit(): void {
-    this.user = this.instanceService.getAuthUser();
+    this.user = this.instanceService.getAuthAdmin();
   }
 
 }

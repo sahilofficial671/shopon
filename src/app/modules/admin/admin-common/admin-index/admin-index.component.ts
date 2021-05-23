@@ -18,9 +18,7 @@ export class AdminIndexComponent implements OnInit {
   constructor(private router: Router,
     private authService: AuthService,
     private instanceService: InstanceService,
-    private toastr: ToastrService,
-    ) {
-    }
+    private toastr: ToastrService){ }
 
   ngOnInit(): void {
   }
@@ -48,16 +46,16 @@ export class AdminIndexComponent implements OnInit {
   }
 
   isLogged():boolean{
-    return this.authService.hasAuth()
-    && this.instanceService.getAuthUser()
-    && this.instanceService.getAuthUser().hasRoleAdmin();
+    return this.authService.hasAuthAdmin()
+    && this.instanceService.getAuthAdmin()
+    && this.instanceService.getAuthAdmin().hasRoleAdmin();
   }
 
   // On every route change toggle sidenav
   onRouterActivate(event):void{
     if(this.isLogged()){
       this.sidenav.open()
-      this.user = this.instanceService.getAuthUser()
+      this.user = this.instanceService.getAuthAdmin()
       return;
     }
     this.sidenav.close()

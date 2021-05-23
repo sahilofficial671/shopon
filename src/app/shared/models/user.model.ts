@@ -20,7 +20,15 @@ export class User {
         return true;
       }
     }
+    return false;
+  }
 
+  hasRoleCustomer(): boolean{
+    for(let role in this.roles){
+      if(this.roles[role].name === "Customer"){
+        return true;
+      }
+    }
     return false;
   }
 

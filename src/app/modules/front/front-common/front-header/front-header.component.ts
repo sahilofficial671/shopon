@@ -1,4 +1,9 @@
 import { Component, OnInit} from '@angular/core';
+import { User } from 'src/app/shared/models/user.model';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { InstanceService } from 'src/app/core/services/instance.service';
 
 @Component({
   selector: 'app-front-header',
@@ -6,8 +11,13 @@ import { Component, OnInit} from '@angular/core';
   styleUrls: ['./front-header.component.css']
 })
 export class FrontHeaderComponent implements OnInit {
-  constructor(
-  ) { }
+  customer:User;
+
+  constructor(private router: Router,
+    private authService: AuthService,
+    private instanceService: InstanceService,
+    private toastr: ToastrService
+  ){ }
 
   menus = [
     {"url":"/electronics", "name": "Electronics", "children": [
@@ -18,16 +28,27 @@ export class FrontHeaderComponent implements OnInit {
         {"url":"/beds", "name": "Bed"},
       ]
     },
-    {"url":"/all-products", "name": "All Products", "children": null}
   ];
 
   actions = [
     {"url":"/cart", "name": "Cart", "icon": "shopping_basket", "children": null},
-    {"url":"/customer", "name": "Customer", "icon": "person", "children": [
-      {"url":"/login", "name": "Login", "icon": "lock"},
-    ]},
   ];
 
   ngOnInit(): void {
+    if(this.isLogged()){
+      this.customer = this.instanceService.getAuthCustomer();
+    }
+  }
+
+  isLogged():boolean{
+    return this.authService.hasAuthCustomer()
+    && this.instanceService.getAuthCustomer()
+    && this.instanceService.getAuthCustomer().hasRoleCustomer();
+  }
+
+  logout():void{
+    this.authService.customerLogout();
+    this.router.navigateByUrl("/");
+    this.toastr.success("Successfuly logged out.")
   }
 }

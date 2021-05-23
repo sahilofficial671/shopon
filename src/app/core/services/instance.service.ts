@@ -10,12 +10,16 @@ export class InstanceService {
 
   constructor() {}
 
-  getAuthUser():User{
-    return this.getUserFromLocalStorage();
+  getAuthAdmin():User{
+    return this.getUserFromLocalStorage("admin");
   }
 
-  getUserFromLocalStorage():User{
-    let user = JSON.parse(localStorage.getItem("user"));
+  getAuthCustomer():User{
+    return this.getUserFromLocalStorage("customer");
+  }
+
+  getUserFromLocalStorage(type:string):User{
+    let user = JSON.parse(localStorage.getItem(type));
     if(user){
       this.user = new User();
       this.user.id = user.id;

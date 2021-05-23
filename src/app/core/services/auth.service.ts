@@ -14,6 +14,7 @@ export class AuthService {
   user:User;
 
   public admin_login_url = environment.server_url+"/admin/login";
+  public customer_login_url = environment.server_url+"/customer/login";
 
   constructor(private apiService: ApiService,
     private instanceService: InstanceService
@@ -23,16 +24,29 @@ export class AuthService {
     return this.apiService.post(this.admin_login_url, login_dto);
   }
 
-  hasAuth():boolean{
-    return this.instanceService.getAuthUser() !== null && this.instanceService.getAuthUser() !== undefined
+  customerLogin(login_dto): Observable<any> {
+    return this.apiService.post(this.customer_login_url, login_dto);
+  }
+
+  hasAuthAdmin():boolean{
+    return this.instanceService.getAuthAdmin() !== null && this.instanceService.getAuthAdmin() !== undefined
+  }
+
+  hasAuthCustomer():boolean{
+    return this.instanceService.getAuthCustomer() !== null && this.instanceService.getAuthCustomer() !== undefined
   }
 
   adminLogout():boolean{
-    localStorage.removeItem("user")
-    return localStorage.getItem("user") == null || localStorage.getItem("user") == undefined;
+    localStorage.removeItem("admin")
+    return localStorage.getItem("admin") == null || localStorage.getItem("admin") == undefined;
   }
 
-  mapUsertoLocalStorage(user:any):void{
+  customerLogout():boolean{
+    localStorage.removeItem("customer")
+    return localStorage.getItem("customer") == null || localStorage.getItem("customer") == undefined;
+  }
+
+  mapUsertoLocalStorage(user:any, type:string):void{
     this.user = new User();
     this.user.id = user.id;
     this.user.firstName = user.firstName;
@@ -57,6 +71,7 @@ export class AuthService {
       this.user.roles.push(userRole);
     }
 
-    localStorage.setItem("user", JSON.stringify(this.user));
+    localStorage.setItem(type, JSON.stringify(this.user));
+    localStorage.setItem("type", type)
   }
 }

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { InstanceService } from 'src/app/core/services/instance.service';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-front-index',
@@ -18,5 +19,6 @@ export class FrontIndexComponent implements OnInit {
     private toastr: ToastrService,
     ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 }
