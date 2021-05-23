@@ -16,8 +16,5 @@ import { MaterialModule } from 'src/app/shared/modules/material/material.module'
     FormsModule,
     ReactiveFormsModule
   ],
-  exports: [
-    FrontLoginComponent,
-  ],
 })
 export class FrontAuthModule { }

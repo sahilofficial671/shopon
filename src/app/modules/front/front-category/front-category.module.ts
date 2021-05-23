@@ -10,7 +10,6 @@ import { FrontCategoryDetailComponent } from './front-category-detail/front-cate
   declarations: [
     FrontCategoryDetailComponent
   ],
-
   imports: [
     CommonModule,
     RouterModule,

@@ -23,9 +23,6 @@ import { FrontCustomerDashboardComponent } from './front-customer-dashboard/fron
     ReactiveFormsModule
   ],
   exports: [
-    FrontCustomerOrderComponent,
-    FrontCustomerIndexComponent,
-    FrontCustomerDashboardComponent,
   ]
 })
 export class FrontCustomerModule { }
