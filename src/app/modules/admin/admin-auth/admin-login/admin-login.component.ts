@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -27,7 +26,6 @@ export class AdminLoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      // get return url from route parameters or default to '/'
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
   }
 
@@ -61,30 +59,27 @@ export class AdminLoginComponent implements OnInit {
       this.form.disable();
       this.email = this.form.get('email').value;
       this.password = this.form.get('password').value;
-      // Async call
-      new Promise((resolve, reject) => {
-        this.authService
-        .adminLogin({email: this.email, password: this.password})
-        .subscribe(async data => {
-          if(data.status == 'success' && data.message != null && data.user){
-            this.authService.mapUsertoLocalStorage(data.user);
-            this.toastr.success(data.message);
-            resolve(data);
-          }
-        }, err => {
-          (err.status == 'error' && err.message != null)
-          ? this.toastr.error(err.message)
-          : this.toastr.error("User not found.");;
-          console.log(err);
-          reject(err);
-        });
-      }).then((data) => {
+
+      this.authService
+      .adminLogin({email: this.email, password: this.password})
+      .toPromise()
+      .then((data) => {
+        if(data.status == 'success' && data.message != null && data.user){
+          this.authService.mapUsertoLocalStorage(data.user, "admin");
+        }
+
         this.returnUrl
         ? this.router.navigate([this.returnUrl])
         : this.router.navigate(["/admin/dashboard"])
+        this.toastr.success(data.message);
       }).catch((err) => {
         this.isSubmitted = false;
         this.form.enable();
+
+        (err.status == 'error' && err.message != null)
+        ? this.toastr.error(err.message)
+        : this.toastr.error("User not found.");;
+        console.log(err);
       })
     }
   }

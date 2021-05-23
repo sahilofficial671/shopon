@@ -1,5 +1,5 @@
 <mat-card class="card">
-  <mat-card-title class="card-header">Admin Login</mat-card-title>
+  <mat-card-title class="card-header text-center">Admin Login</mat-card-title>
   <mat-card-content class="card-body">
     <form [formGroup]="form" (ngSubmit)="login()">
       <mat-form-field appearance="outline">
@@ -26,6 +26,7 @@
         [type]="passwordToggle ? 'password' : 'text'"
         >
         <button
+        type="button"
         mat-icon-button
         matSuffix
         (click)="passwordToggle = !passwordToggle"
