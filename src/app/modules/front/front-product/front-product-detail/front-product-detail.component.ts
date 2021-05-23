@@ -69,6 +69,7 @@ export class FrontProductDetailComponent implements OnInit {
           this.toastr.error(err.errors[0].defaultMessage)
           return;
         }
+
         this.toastr.error("Something went wrong. Please try again later");
       });
   }

@@ -17,7 +17,15 @@ export class CategoryService {
   ) { }
 
   public group_url = environment.server_url+"/categories";
-  public url = environment.server_url+"/product";
+  public url = environment.server_url+"/category";
+
+  getCategory(id:any): Observable<any> {
+    return this.apiService.get(this.url+"/"+id);
+  }
+
+  getCategoryBySlug(slug:any): Observable<any> {
+    return this.apiService.get(this.url+"/by/slug/"+slug);
+  }
 
   getCategories(): Observable<any> {
     return this.apiService.get(this.group_url);

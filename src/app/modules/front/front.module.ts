@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { FrontAuthModule } from './front-auth/front-auth.module';
 import { MaterialModule } from 'src/app/shared/modules/material/material.module';
 import { FrontCustomerModule } from './front-customer/front-customer.module';
+import { FrontCategoryModule } from './front-category/front-category.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FrontCustomerModule } from './front-customer/front-customer.module';
 
     FrontCommonModule,
     FrontProductModule,
+    FrontCategoryModule,
     FrontCustomerModule,
     FrontAuthModule,
   ]

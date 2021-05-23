@@ -74,6 +74,9 @@
               <div class="content">
                 <span class="label title" [matMenuTriggerFor]="actionItem">{{customer.firstName}}</span>
                 <mat-menu #actionItem="matMenu" xPosition="before">
+                  <button mat-menu-item [routerLink]="'/customer'">
+                    <mat-icon>home</mat-icon>Account
+                  </button>
                   <button mat-menu-item (click)="logout()">
                     <mat-icon>logout</mat-icon>Logout
                   </button>

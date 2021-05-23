@@ -1,0 +1,16 @@
+<div class="category-container front-top">
+  <div class="row">
+    <div class="col-sm-9 col-xs-12 offset-sm-2">
+
+      <div class="category" *ngIf="category">
+        <mat-card class="card">
+          <mat-card-title class="card-header">{{category.name}}</mat-card-title>
+          <mat-card-content class="card-body">
+            <div class="description">{{category.description}}</div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </div>
+  </div>
+</div>

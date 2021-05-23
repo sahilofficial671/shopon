@@ -11,6 +11,7 @@ import { AdminProductListComponent } from './modules/admin/admin-product/admin-p
 import { AdminProductUpdateComponent } from './modules/admin/admin-product/admin-product-update/admin-product-update.component';
 import { TestComponent } from './modules/admin/test/test.component';
 import { FrontLoginComponent } from './modules/front/front-auth/front-login/front-login.component';
+import { FrontCategoryDetailComponent } from './modules/front/front-category/front-category-detail/front-category-detail.component';
 import { FrontCustomerDashboardComponent } from './modules/front/front-customer/front-customer-dashboard/front-customer-dashboard.component';
 import { FrontCustomerIndexComponent } from './modules/front/front-customer/front-customer-index/front-customer-index.component';
 import { FrontCustomerOrderComponent } from './modules/front/front-customer/front-customer-order/front-customer-order.component';
@@ -36,6 +37,7 @@ const routes: Routes = [
   },
 
   {path: "p/:slug", component: FrontProductDetailComponent},
+  {path: "c/:slug", component: FrontCategoryDetailComponent},
 
   // Admin Routes
   { path: 'admin/login', canActivate: [GuestAdminGuard], component:  AdminLoginComponent},
