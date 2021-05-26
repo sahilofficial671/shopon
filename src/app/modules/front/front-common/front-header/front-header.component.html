@@ -9,6 +9,8 @@
           <div class="menu-parent with-child" *ngIf="menu.children != null">
             <a mat-button [matMenuTriggerFor]="menuItem">{{menu.name}}</a>
             <mat-menu #menuItem="matMenu" xPosition="before" [ngClass]="menu.children == null ? 'hidden' : ''">
+              <a mat-menu-item *ngIf="menu.url" [routerLink]="'c/'+menu.url">{{ menu.name }}</a>
+              <mat-divider></mat-divider>
               <a mat-menu-item [routerLink]="'c/'+child.url" *ngFor="let child of menu.children">{{ child.name }}</a>
             </mat-menu>
           </div>
