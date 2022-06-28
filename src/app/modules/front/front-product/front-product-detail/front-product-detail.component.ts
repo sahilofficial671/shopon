@@ -36,7 +36,6 @@ export class FrontProductDetailComponent implements OnInit {
       .then((data) => {
         if(data.status == 'success' && data.product){
           this.product = this.productService.getProductsMappedToModel([data.product])[0];
-          // console.log(this.product);
 
           if(this.product.images.length > 0){
             this.product.images.forEach((image) => {
@@ -53,13 +52,7 @@ export class FrontProductDetailComponent implements OnInit {
               thumbImage: this.noImagePath,
             });
           }
-
-
-          console.log(this.images);
-          return;
         }
-
-        this.toastr.error("Something went wrong. Please try again later");
       }).catch((err) => {
         if(err.status == 'error' && err.message != null){
           this.toastr.error(err.message)

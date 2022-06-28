@@ -35,15 +35,24 @@ export class InstanceService {
       this.user.updatedAt = user.updatedAt;
 
       this.user.roles = [];
-      for(let role in user.roles){
-        let userRole = new Role();
-        userRole.id = user.roles[role].id;
-        userRole.name = user.roles[role].name;
-        userRole.description = user.roles[role].description;
-        userRole.createdAt = user.roles[role].createdAt;
-        userRole.updatedAt = user.roles[role].updatedAt;
-        this.user.roles.push(userRole);
-      }
+
+      let userRole = new Role();
+      userRole.id = "customer";
+      userRole.name = "Customer";
+      userRole.description = null;
+      userRole.createdAt = null;
+      userRole.updatedAt = null;
+      this.user.roles.push(userRole);
+
+      // for(let role in user.roles){
+      //   let userRole = new Role();
+      //   userRole.id = user.roles[role].id;
+      //   userRole.name = user.roles[role].name;
+      //   userRole.description = user.roles[role].description;
+      //   userRole.createdAt = user.roles[role].createdAt;
+      //   userRole.updatedAt = user.roles[role].updatedAt;
+      //   this.user.roles.push(userRole);
+      // }
 
       return this.user;
     }

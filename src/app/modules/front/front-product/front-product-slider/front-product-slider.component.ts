@@ -27,7 +27,9 @@ export class FrontProductSliderComponent implements OnInit {
     this.products = [];
     this.isLoaded = false;
 
-    this.productService.getProducts()
+    this.productService.getProducts({
+      'withCategory': false,
+    })
     .toPromise()
     .then((data) => {
       this.products = this.productService.getProductsMappedToModel(data.products);

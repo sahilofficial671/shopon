@@ -54,22 +54,25 @@ export class FrontLoginComponent implements OnInit {
       .customerLogin({email: this.email, password: this.password})
       .toPromise()
       .then((data) => {
-        if(data.status == 'success' && data.message != null && data.user){
+        if(data.status == 'success' && data.user){
           this.authService.mapUsertoLocalStorage(data.user, "customer");
         }
 
         this.returnUrl
-        ? this.router.navigate([this.returnUrl])
-        : this.router.navigate(["/customer/dashboard"])
-        this.toastr.success(data.message);
+          ? this.router.navigate([this.returnUrl])
+          : this.router.navigate(["/customer/dashboard"])
+
+        this.toastr.success("You have been logged in.");
       }).catch((err) => {
+        console.log(err);
+
         this.isSubmitted = false;
         this.form.enable();
 
         (err.status == 'error' && err.message != null)
-        ? this.toastr.error(err.message)
-        : this.toastr.error("User not found.");;
-        console.log(err);
+          ? this.toastr.error(err.message)
+          : this.toastr.error("User not found.");
+
       })
 
       return;
@@ -78,4 +81,4 @@ export class FrontLoginComponent implements OnInit {
     this.toastr.error("Please fill all mandatory fields!")
   }
 
-} // close final
+}

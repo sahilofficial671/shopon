@@ -29,12 +29,12 @@
 
       <div class="row">
 
-        <div class="col-3" *ngIf="products[0] != undefined">
+        <div class="col-4" *ngIf="products[0] != undefined">
           <a class="image" [routerLink]="'/p/' + products[0].slug">
             <img [src]="imagePrefix + products[0].mainImagePath" class="img-responsive">
           </a>
         </div>
-        <div class="col-9" *ngIf="products[0] != undefined">
+        <div class="col-7" *ngIf="products[0] != undefined">
           <a [routerLink]="'/p/' + products[0].slug"><div class="name">{{products[0].name}}</div></a>
           <div class="price-block">
             <div class="special-price">{{products[0].specialPrice}}</div>

@@ -14,7 +14,7 @@ export class AuthService {
   user:User;
 
   public admin_login_url = environment.server_url+"/admin/login";
-  public customer_login_url = environment.server_url+"/customer/login";
+  public customer_login_url = environment.server_url+"/auth/login";
 
   constructor(private apiService: ApiService,
     private instanceService: InstanceService
@@ -48,7 +48,7 @@ export class AuthService {
 
   mapUsertoLocalStorage(user:any, type:string):void{
     this.user = new User();
-    this.user.id = user.id;
+    this.user.id = user._id;
     this.user.firstName = user.firstName;
     this.user.lastName = user.lastName;
     this.user.gender = null;
@@ -61,15 +61,23 @@ export class AuthService {
     this.user.updatedAt = null;
 
     this.user.roles = [];
-    for(let role in user.roles){
-      let userRole = new Role();
-      userRole.id = user.roles[role].id;
-      userRole.name = user.roles[role].name;
+    let userRole = new Role();
+      userRole.id = "customer";
+      userRole.name = "Customer";
       userRole.description = null;
       userRole.createdAt = null;
       userRole.updatedAt = null;
       this.user.roles.push(userRole);
-    }
+
+    // for(let role in user.roles){
+    //   let userRole = new Role();
+    //   userRole.id = user.roles[role].id;
+    //   userRole.name = user.roles[role].name;
+    //   userRole.description = null;
+    //   userRole.createdAt = null;
+    //   userRole.updatedAt = null;
+    //   this.user.roles.push(userRole);
+    // }
 
     localStorage.setItem(type, JSON.stringify(this.user));
     localStorage.setItem("type", type)

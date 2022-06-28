@@ -26,11 +26,12 @@ export class ProductService {
   }
 
   getProductBySlug(slug:string): Observable<any> {
-    return this.apiService.get(this.url+"/by/slug/"+slug);
+    return this.apiService.get(this.group_url+ "/" +slug);
   }
 
-  getProducts(): Observable<any> {
-    return this.apiService.get(this.group_url);
+  getProducts(options?): Observable<any> {
+    return this.apiService
+    .get(this.group_url, options);
   }
 
   submitProduct(product:Product): Observable<any> {
@@ -49,7 +50,7 @@ export class ProductService {
     this.products = [];
     for(let index in products){
       let product = new Product();
-      product.id = products[index].id;
+      product.id = products[index]._id;
       product.name = products[index].name;
       product.description = products[index].description;
       product.quantity = products[index].quantity;
@@ -61,20 +62,20 @@ export class ProductService {
       product.updatedAt = products[index].updatedAt;
       product.images = [];
 
+      product.images.push(new ProductImage(product.mainImagePath));
+
       for(let imageIndex in products[index].images){
         product.images.push(new ProductImage(products[index].images[imageIndex].path));
       }
 
       product.categories = [];
-      for(let catIndex in products[index].categories){
         let category = new Category();
-        category.id = products[index].categories[catIndex].id;
-        category.name = products[index].categories[catIndex].name;
-        category.description = products[index].categories[catIndex].description;
-        category.createdAt = products[index].categories[catIndex].createdAt;
-        category.updatedAt = products[index].categories[catIndex].updatedAt;
+        category.id = products[index].category._id;
+        category.name = products[index].category.title;
+        category.description = products[index].category.description;
+        category.createdAt = products[index].category.createdAt;
+        category.updatedAt = products[index].category.updatedAt;
         product.categories.push(category)
-      }
 
       this.products.push(product);
     }
