@@ -43,8 +43,8 @@ export class AdminLoginComponent implements OnInit {
   });
 
   errorBag:any = {
-    "userName" : {
-      "required": "userName is required",
+    "email" : {
+      "required": "Email is required",
       "email": "Please enter a valid email address"
     },
     "password" :{

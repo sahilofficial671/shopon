@@ -27,7 +27,6 @@ export class InstanceService {
       this.user.lastName = user.lastName;
       this.user.gender = user.gender;
       this.user.email = user.email;
-      this.user.userName = user.userName;
       this.user.password = user.password;
       this.user.dateOfBirth = user.dateOfBirth;
       this.user.phone = user.phone;
