@@ -54,11 +54,11 @@
         </div>
 
         <div class="action user-container" *ngIf="!isLogged()">
-          <button mat-button>
+          <button mat-button [matMenuTriggerFor]="actionItem">
             <div class="d-flex align-items-center">
               <mat-icon class="icon">person</mat-icon>
               <div class="content">
-                <span class="label title" [matMenuTriggerFor]="actionItem">Customer</span>
+                <span class="label title">Customer</span>
                 <mat-menu #actionItem="matMenu" xPosition="before">
                   <button mat-menu-item [routerLink]="'/customer/login'">
                     <mat-icon>login</mat-icon>Login
