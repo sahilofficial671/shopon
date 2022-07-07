@@ -9,7 +9,7 @@ export class User {
   password: string;
   dateOfBirth: string;
   phone: string;
-  roles:Array<Role>;
+  roles: Array<Role>;
   createdAt: string;
   updatedAt: string;
 
@@ -19,6 +19,7 @@ export class User {
         return true;
       }
     }
+
     return false;
   }
 
@@ -28,10 +29,11 @@ export class User {
         return true;
       }
     }
+
     return false;
   }
 
-  getFullName():string{
+  getFullName(): string{
     return this.firstName+" "+this.lastName;
   }
 }
