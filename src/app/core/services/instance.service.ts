@@ -10,16 +10,17 @@ export class InstanceService {
 
   constructor() {}
 
-  getAuthAdmin():User{
-    return this.getUserFromLocalStorage("admin");
+  getAuthAdmin(): User{
+    return this.getUser("admin");
   }
 
-  getAuthCustomer():User{
-    return this.getUserFromLocalStorage("customer");
+  getAuthCustomer(): User{
+    return this.getUser("customer");
   }
 
-  getUserFromLocalStorage(type:string):User{
+  getUser(type:string):User{
     let user = JSON.parse(localStorage.getItem(type));
+
     if(user){
       this.user = new User();
       this.user.id = user.id;
@@ -32,6 +33,7 @@ export class InstanceService {
       this.user.phone = user.phone;
       this.user.createdAt = user.createdAt;
       this.user.updatedAt = user.updatedAt;
+      this.user.token = user.token;
 
       this.user.roles = [];
 
@@ -41,6 +43,7 @@ export class InstanceService {
       userRole.description = null;
       userRole.createdAt = null;
       userRole.updatedAt = null;
+
       this.user.roles.push(userRole);
 
       // for(let role in user.roles){

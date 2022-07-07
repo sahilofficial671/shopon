@@ -51,29 +51,29 @@ export class FrontLoginComponent implements OnInit {
       this.password = this.form.get('password').value;
 
       this.authService
-      .customerLogin({email: this.email, password: this.password})
-      .toPromise()
-      .then((data) => {
-        if(data.status == 'success' && data.user){
-          this.authService.mapUsertoLocalStorage(data.user, "customer");
-        }
+        .customerLogin({email: this.email, password: this.password})
+        .toPromise()
+        .then((data) => {
+          if(data.status == 'success' && data.user){
+            this.authService.storeUser(data.user, this.authService.customerKey);
+          }
 
-        this.returnUrl
-          ? this.router.navigate([this.returnUrl])
-          : this.router.navigate(["/customer/dashboard"])
+          this.returnUrl
+            ? this.router.navigate([this.returnUrl])
+            : this.router.navigate(["/customer/dashboard"])
 
-        this.toastr.success("You have been logged in.");
-      }).catch((err) => {
-        console.log(err);
+          this.toastr.success("You have been logged in.");
+        }).catch((err) => {
+          console.log(err);
 
-        this.isSubmitted = false;
-        this.form.enable();
+          this.isSubmitted = false;
+          this.form.enable();
 
-        (err.status == 'error' && err.message != null)
-          ? this.toastr.error(err.message)
-          : this.toastr.error("User not found.");
+          (err.status == 'error' && err.message != null)
+            ? this.toastr.error(err.message)
+            : this.toastr.error("User not found.");
 
-      })
+        })
 
       return;
     }

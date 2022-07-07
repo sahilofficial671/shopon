@@ -12,6 +12,7 @@ export class User {
   roles: Array<Role>;
   createdAt: string;
   updatedAt: string;
+  token: string;
 
   hasRoleAdmin(): boolean{
     for(let role in this.roles){

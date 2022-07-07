@@ -65,7 +65,7 @@ export class AdminLoginComponent implements OnInit {
       .toPromise()
       .then((data) => {
         if(data.status == 'success' && data.message != null && data.user){
-          this.authService.mapUsertoLocalStorage(data.user, "admin");
+          this.authService.storeUser(data.user, "admin");
         }
 
         this.returnUrl

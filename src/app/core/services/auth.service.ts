@@ -13,6 +13,11 @@ import { Role } from 'src/app/shared/models/role.model';
 export class AuthService {
   user:User;
 
+  // Keys
+  public tokenKey = 'token';
+  public customerKey = 'customer';
+  public adminKey = 'admin';
+
   public admin_login_url = environment.server_url+"/admin/login";
   public customer_login_url = environment.server_url+"/auth/login";
 
@@ -21,10 +26,14 @@ export class AuthService {
   ) { }
 
   adminLogin(login_dto): Observable<any> {
+    this.destroyAuth(this.adminKey);
+
     return this.apiService.post(this.admin_login_url, login_dto);
   }
 
   customerLogin(login_dto): Observable<any> {
+    this.destroyAuth(this.customerKey);
+
     return this.apiService.post(this.customer_login_url, login_dto);
   }
 
@@ -32,41 +41,55 @@ export class AuthService {
     return this.instanceService.getAuthAdmin() !== null && this.instanceService.getAuthAdmin() !== undefined
   }
 
-  hasAuthCustomer():boolean{
-    return this.instanceService.getAuthCustomer() !== null && this.instanceService.getAuthCustomer() !== undefined
+  hasAuthCustomer(): boolean{
+    const customer = JSON.parse(localStorage.getItem(this.customerKey));
+
+    return this.exists(customer) && this.exists(customer[this.tokenKey]);
+  }
+
+  exists(value): boolean{
+    return value !== undefined && value !== null && value !== "";
   }
 
   adminLogout():boolean{
-    localStorage.removeItem("admin")
+    this.destroyAuth(this.adminKey);
     return localStorage.getItem("admin") == null || localStorage.getItem("admin") == undefined;
   }
 
   customerLogout():boolean{
-    localStorage.removeItem("customer")
-    return localStorage.getItem("customer") == null || localStorage.getItem("customer") == undefined;
+    this.destroyAuth(this.customerKey);
+
+    return localStorage.getItem("customer") === null || localStorage.getItem("customer") == undefined;
   }
 
-  mapUsertoLocalStorage(user:any, type:string):void{
+  private destroyAuth(key): void{
+    localStorage.removeItem(key);
+  }
+
+  storeUser(user:any, type:string):void{
     this.user = new User();
     this.user.id = user._id;
     this.user.firstName = user.firstName;
     this.user.lastName = user.lastName;
-    this.user.gender = null;
-    this.user.email = null;
-    this.user.password = null;
-    this.user.dateOfBirth = null;
-    this.user.phone = null;
-    this.user.createdAt = null;
-    this.user.updatedAt = null;
+    // this.user.gender = null;
+    this.user.email = user.email;
+    // this.user.password = null;
+    // this.user.dateOfBirth = null;
+    // this.user.phone = null;
+    // this.user.createdAt = null;
+    // this.user.updatedAt = null;
+    this.user.token = user.token;
 
     this.user.roles = [];
+
     let userRole = new Role();
-      userRole.id = "customer";
-      userRole.name = "Customer";
-      userRole.description = null;
-      userRole.createdAt = null;
-      userRole.updatedAt = null;
-      this.user.roles.push(userRole);
+    userRole.id = "customer";
+    userRole.name = "Customer";
+    userRole.description = null;
+    userRole.createdAt = null;
+    userRole.updatedAt = null;
+
+    this.user.roles.push(userRole);
 
     // for(let role in user.roles){
     //   let userRole = new Role();
@@ -79,6 +102,5 @@ export class AuthService {
     // }
 
     localStorage.setItem(type, JSON.stringify(this.user));
-    localStorage.setItem("type", type)
   }
 }
