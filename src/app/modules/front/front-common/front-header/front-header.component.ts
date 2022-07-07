@@ -3,7 +3,6 @@ import { User } from 'src/app/shared/models/user.model';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { InstanceService } from 'src/app/core/services/instance.service';
 
 @Component({
   selector: 'app-front-header',
@@ -15,7 +14,6 @@ export class FrontHeaderComponent implements OnInit {
 
   constructor(private router: Router,
     private authService: AuthService,
-    private instanceService: InstanceService,
     private toastr: ToastrService
   ){ }
 
@@ -36,14 +34,14 @@ export class FrontHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.isLogged()){
-      this.customer = this.instanceService.getAuthCustomer();
+      this.customer = this.authService.getAuthCustomer();
     }
   }
 
   isLogged():boolean{
     return this.authService.hasAuthCustomer()
-    && this.instanceService.getAuthCustomer()
-    && this.instanceService.getAuthCustomer().hasRoleCustomer();
+    && this.authService.getAuthCustomer()
+    && this.authService.getAuthCustomer().hasRoleCustomer();
   }
 
   logout():void{

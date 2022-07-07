@@ -3,7 +3,6 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { InstanceService } from 'src/app/core/services/instance.service';
 import { User } from 'src/app/shared/models/user.model';
 
 @Component({
@@ -17,7 +16,6 @@ export class AdminIndexComponent implements OnInit {
 
   constructor(private router: Router,
     private authService: AuthService,
-    private instanceService: InstanceService,
     private toastr: ToastrService){ }
 
   ngOnInit(): void {
@@ -47,15 +45,15 @@ export class AdminIndexComponent implements OnInit {
 
   isLogged():boolean{
     return this.authService.hasAuthAdmin()
-    && this.instanceService.getAuthAdmin()
-    && this.instanceService.getAuthAdmin().hasRoleAdmin();
+    && this.authService.getAuthAdmin()
+    && this.authService.getAuthAdmin().hasRoleAdmin();
   }
 
   // On every route change toggle sidenav
   onRouterActivate(event):void{
     if(this.isLogged()){
       this.sidenav.open()
-      this.user = this.instanceService.getAuthAdmin()
+      this.user = this.authService.getAuthAdmin()
       return;
     }
     this.sidenav.close()

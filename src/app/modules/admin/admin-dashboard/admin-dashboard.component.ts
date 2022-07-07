@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { InstanceService } from 'src/app/core/services/instance.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { User } from 'src/app/shared/models/user.model';
 
 @Component({
@@ -11,10 +11,9 @@ export class AdminDashboardComponent implements OnInit {
 
   user:User;
 
-  constructor(private instanceService: InstanceService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.user = this.instanceService.getAuthAdmin();
+    this.user = this.authService.getAuthAdmin();
   }
-
 }

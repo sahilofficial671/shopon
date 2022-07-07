@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { InstanceService } from './instance.service';
 import { User } from 'src/app/shared/models/user.model';
 import { Role } from 'src/app/shared/models/role.model';
 
@@ -21,8 +20,7 @@ export class AuthService {
   public admin_login_url = environment.server_url+"/admin/login";
   public customer_login_url = environment.server_url+"/auth/login";
 
-  constructor(private apiService: ApiService,
-    private instanceService: InstanceService
+  constructor(private apiService: ApiService
   ) { }
 
   adminLogin(login_dto): Observable<any> {
@@ -38,7 +36,7 @@ export class AuthService {
   }
 
   hasAuthAdmin():boolean{
-    return this.instanceService.getAuthAdmin() !== null && this.instanceService.getAuthAdmin() !== undefined
+    return this.getAuthAdmin() !== null && this.getAuthAdmin() !== undefined
   }
 
   hasAuthCustomer(): boolean{
@@ -102,5 +100,55 @@ export class AuthService {
     // }
 
     localStorage.setItem(type, JSON.stringify(this.user));
+  }
+
+  getAuthAdmin(): User{
+    return this.getUser(this.adminKey);
+  }
+
+  getAuthCustomer(): User{
+    return this.getUser(this.customerKey);
+  }
+
+  getUser(type:string):User{
+    let user = JSON.parse(localStorage.getItem(type));
+
+    if(user){
+      this.user = new User();
+      this.user.id = user.id;
+      this.user.firstName = user.firstName;
+      this.user.lastName = user.lastName;
+      this.user.gender = user.gender;
+      this.user.email = user.email;
+      this.user.password = user.password;
+      this.user.dateOfBirth = user.dateOfBirth;
+      this.user.phone = user.phone;
+      this.user.createdAt = user.createdAt;
+      this.user.updatedAt = user.updatedAt;
+      this.user.token = user.token;
+
+      this.user.roles = [];
+
+      let userRole = new Role();
+      userRole.id = "customer";
+      userRole.name = "Customer";
+      userRole.description = null;
+      userRole.createdAt = null;
+      userRole.updatedAt = null;
+
+      this.user.roles.push(userRole);
+
+      // for(let role in user.roles){
+      //   let userRole = new Role();
+      //   userRole.id = user.roles[role].id;
+      //   userRole.name = user.roles[role].name;
+      //   userRole.description = user.roles[role].description;
+      //   userRole.createdAt = user.roles[role].createdAt;
+      //   userRole.updatedAt = user.roles[role].updatedAt;
+      //   this.user.roles.push(userRole);
+      // }
+
+      return this.user;
+    }
   }
 }

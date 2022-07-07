@@ -3,7 +3,6 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './core/services/auth.service';
-import { InstanceService } from './core/services/instance.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +15,6 @@ export class AppComponent {
 
   constructor(private router: Router,
     private authService: AuthService,
-    private instanceService: InstanceService,
     private toastr: ToastrService,
     ) { }
 

@@ -3,7 +3,6 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../services/auth.service';
-import { InstanceService } from '../services/instance.service';
 import { UserService } from '../services/user.service';
 
 @Injectable({
@@ -13,7 +12,6 @@ export class CustomerGuard implements CanActivate {
   constructor(private router: Router,
     private userService: UserService,
     private toastr: ToastrService,
-    private instanceService: InstanceService,
     private authService: AuthService,
   ) { }
 
@@ -21,7 +19,7 @@ export class CustomerGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      if(this.authService.hasAuthCustomer() && this.instanceService.getAuthCustomer().hasRoleCustomer()){
+      if(this.authService.hasAuthCustomer() && this.authService.getAuthCustomer().hasRoleCustomer()){
         return true;
       }
 

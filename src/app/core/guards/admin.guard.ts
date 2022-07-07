@@ -3,24 +3,20 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { InstanceService } from '../services/instance.service';
-import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
   constructor(private router: Router,
-    private userService: UserService,
     private toastr: ToastrService,
-    private instanceService: InstanceService,
     private authService: AuthService,
   ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(this.authService.hasAuthAdmin() && this.instanceService.getAuthAdmin().hasRoleAdmin()){
+      if(this.authService.hasAuthAdmin() && this.authService.getAuthAdmin().hasRoleAdmin()){
         return true;
       }
 
