@@ -42,15 +42,12 @@ export class AuthService {
   hasAuthCustomer(): boolean{
     const customer = JSON.parse(localStorage.getItem(this.customerKey));
 
-    return this.exists(customer) && this.exists(customer[this.tokenKey]);
-  }
-
-  exists(value): boolean{
-    return value !== undefined && value !== null && value !== "";
+    return customer && customer['token'];
   }
 
   adminLogout():boolean{
     this.destroyAuth(this.adminKey);
+
     return localStorage.getItem("admin") == null || localStorage.getItem("admin") == undefined;
   }
 
