@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  server_url: "http://localhost:1000/api/v1",
+  server_url: "http://localhost:5000/api/v1",
   imageKitUrl: 'https://ik.imagekit.io/webiggle/products/',
   noImagePath: '/assets/images/common/no-image.png',
 };
