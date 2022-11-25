@@ -5,16 +5,7 @@
   </div>
   <div class="carousel-items product-image-cards medium">
     <div class="product-card" *ngFor="let product of products">
-      <a [routerLink]="'/p/'+product.slug">
-        <div class="image">
-          <img [src]="imagePrefix + product.mainImagePath" class="img-responsive">
-        </div>
-      </a>
-      <a [routerLink]="'/p/'+product.slug"><div class="name">{{product.name}}</div></a>
-      <div class="price-block">
-        <div class="special-price">{{product.specialPrice}}</div>
-        <div class="price">{{product.price}}</div>
-      </div>
+      <app-front-product-card [product]="product"></app-front-product-card>
     </div>
   </div>
 </div>

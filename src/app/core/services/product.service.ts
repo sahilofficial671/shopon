@@ -48,7 +48,7 @@ export class ProductService {
     this.products = [];
     for(let index in products){
       let product = new Product();
-      product.id = products[index]._id;
+      product.id = products[index]._id || products[index].id;
       product.name = products[index].name;
       product.description = products[index].description;
       product.quantity = products[index].quantity;
@@ -67,13 +67,23 @@ export class ProductService {
       }
 
       product.categories = [];
-        let category = new Category();
-        category.id = products[index].category._id;
+      let category = new Category();
+
+      if(products[index]['category']){
+        category.id = products[index].category._id
         category.name = products[index].category.title;
         category.description = products[index].category.description;
         category.createdAt = products[index].category.createdAt;
         category.updatedAt = products[index].category.updatedAt;
-        product.categories.push(category)
+      }else if(products[index]['categories'] && products[index]['categories'][0]){
+        category.id = products[index]['categories'][0]._id || products[index]['categories'][0].id
+        category.name = products[index]['categories'][0].name;
+        category.description = products[index]['categories'][0].description;
+        category.createdAt = products[index]['categories'][0].createdAt;
+        category.updatedAt = products[index]['categories'][0].updatedAt;
+      }
+
+      product.categories.push(category)
 
       this.products.push(product);
     }

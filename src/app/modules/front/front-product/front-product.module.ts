@@ -6,6 +6,7 @@ import { FrontProductSliderComponent } from './front-product-slider/front-produc
 import { FrontProductSpecialComponent } from './front-product-special/front-product-special.component';
 import { FrontProductDetailComponent } from './front-product-detail/front-product-detail.component';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { FrontProductCardComponent } from './front-product-card/front-product-card.component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     FrontProductSliderComponent,
     FrontProductSpecialComponent,
     FrontProductDetailComponent,
+    FrontProductCardComponent,
   ],
   imports: [
     RouterModule,

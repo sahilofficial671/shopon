@@ -1,0 +1,12 @@
+<div class="product-card">
+  <a [routerLink]="'/p/'+product.slug">
+    <div class="image">
+      <img [src]="product.getFullImagePath()" class="img-responsive">
+    </div>
+  </a>
+  <a [routerLink]="'/p/'+product.slug"><div class="name">{{product.name}}</div></a>
+  <div class="price-block">
+    <div class="special-price">{{product.specialPrice}}</div>
+    <div class="price">{{product.price}}</div>
+  </div>
+</div>
