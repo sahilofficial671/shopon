@@ -1,5 +1,6 @@
 export const environment = {
-  production: false,
-  server_url: "http://localhost:9001/v1/api",
-  imageKitUrl: 'https://ik.imagekit.io/webiggle/products'
+  production: true,
+  server_url: "https://ecommerce-api-node.vercel.app/",
+  imageKitUrl: 'https://ik.imagekit.io/webiggle/products/',
+  noImagePath: '/assets/images/common/no-image.png',
 };
