@@ -33,12 +33,13 @@ export class FrontHeaderComponent implements OnInit {
         ]
       },
     ];
-  }
 
-  ngOnInit(): void {
     if(this.isLogged()){
       this.customer = this.authService.getAuthCustomer();
     }
+  }
+
+  ngOnInit(): void {
   }
 
   isLogged():boolean{
@@ -49,7 +50,7 @@ export class FrontHeaderComponent implements OnInit {
 
   logout():void{
     this.authService.customerLogout();
-    this.router.navigateByUrl("/");
+    this.customer = null
     this.toastr.success("Successfuly logged out.")
   }
 }
