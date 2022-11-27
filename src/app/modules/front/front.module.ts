@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { FrontAuthModule } from './front-auth/front-auth.module';
 import { MaterialModule } from 'src/app/shared/modules/material/material.module';
 import { FrontCustomerModule } from './front-customer/front-customer.module';
+import { FrontCheckoutModule } from './front-checkout/front-checkout.module';
 import { FrontCategoryModule } from './front-category/front-category.module';
 
 @NgModule({
@@ -22,17 +23,13 @@ import { FrontCategoryModule } from './front-category/front-category.module';
 
     FrontCommonModule,
     FrontProductModule,
-    FrontCustomerModule,
-    FrontAuthModule,
-  ],
-  exports: [
-    FrontIndexComponent,
-
-    FrontCommonModule,
-    FrontProductModule,
     FrontCategoryModule,
     FrontCustomerModule,
     FrontAuthModule,
+    FrontCheckoutModule
+  ],
+  exports: [
+    FrontIndexComponent,
   ]
 })
 export class FrontModule { }

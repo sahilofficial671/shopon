@@ -8,9 +8,9 @@ import { Product } from 'src/app/shared/models/product.model';
 })
 export class FrontProductCardComponent implements OnInit {
   @Input() product: Product;
+
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

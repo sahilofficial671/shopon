@@ -24,7 +24,7 @@ export class AdminGuard implements CanActivate {
           queryParams: { returnUrl: state.url }
       });
 
-      this.toastr.error("Please login first.")
+      this.toastr.info("Please login first.")
       return false;
   }
 }

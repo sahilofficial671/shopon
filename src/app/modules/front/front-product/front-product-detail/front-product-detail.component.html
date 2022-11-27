@@ -1,5 +1,5 @@
-<div class="container-fluid pt-5">
-  <div class="row product-container">
+<div class="container-fluid pt-4 pt-lg-5 px-2 px-lg-5">
+  <div class="row product-container col-lg-10 mx-auto">
 
     <div class="col-md-7 col-xs-12">
       <div class="block product-block-1" *ngIf="product != undefined">
@@ -43,22 +43,21 @@
 
         <div class="buy-block actions">
           <div class="action add-to-cart">
-            <button mat-raised-button color="primary">
+            <button
+            mat-raised-button
+            color="primary"
+            (click)="!isAddedToCart ? addToCart($event) : redirectToCart()"
+            [disabled]="isAddingToCart">
               <div class="d-flex align-items-center">
                 <mat-icon class="icon">shopping_basket</mat-icon>
-                <div class="content">Add to Cart</div>
-              </div>
-            </button>
-          </div>
-          <div class="action">
-            <button mat-raised-button color="primary">
-              <div class="d-flex align-items-center">
-                <mat-icon class="icon">lock</mat-icon>
-                <div class="content">Buy</div>
-              </div>
-            </button>
-          </div>
+                <div class="content" *ngIf="!isAddedToCart">Add to Cart</div>
+                <div class="content" *ngIf="isAddedToCart">Go to Cart</div>
 
+                <mat-spinner [diameter]="20" class="ms-2" *ngIf="isAddingToCart"></mat-spinner>
+              </div>
+            </button>
+
+          </div>
         </div>
 
       </div>

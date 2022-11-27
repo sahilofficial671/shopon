@@ -24,6 +24,7 @@ import { FrontProductCardComponent } from './front-product-card/front-product-ca
   ],
   exports: [
     FrontProductSliderComponent,
+    FrontProductCardComponent
   ]
 })
 export class FrontProductModule { }

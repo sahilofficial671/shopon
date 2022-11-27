@@ -26,9 +26,16 @@
 
     <div class="toolbar-right">
       <div class="actions">
-        <div class="action" *ngFor="let action of actions">
-
-          <button mat-button *ngIf="action.children == null" [routerLink]="action.url">
+        <button mat-button class="action" [routerLink]="'/cart'">
+          <div mat-button class="d-flex align-items-center">
+            <mat-icon class="icon">shopping_basket</mat-icon>
+            <div class="content">
+              <div class="label">Cart ({{checkoutService.totalProducts}})</div>
+            </div>
+          </div>
+        </button>
+        <ng-container *ngFor="let action of actions">
+          <button mat-button class="action" *ngIf="action.children == null" [routerLink]="action.url">
             <div mat-button class="d-flex align-items-center">
               <mat-icon class="icon"> {{action.icon}}</mat-icon>
               <div class="content">
@@ -50,8 +57,7 @@
               </div>
             </div>
           </button>
-
-        </div>
+        </ng-container>
 
         <div class="action user-container" *ngIf="!isLogged()">
           <button mat-button [matMenuTriggerFor]="actionItem">

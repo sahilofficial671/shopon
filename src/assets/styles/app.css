@@ -23,7 +23,7 @@
   height: auto;
   display: flex;
   align-content: center;
-  padding: 0 1.25rem;
+  padding: 0 1.25rem !important;
 }
 .front .toolbar .actions .action{
   padding: 0px;
@@ -433,6 +433,11 @@ form .mat-subheader{
   background: #ffd765;
   color: #222b45;
   border: 1px solid #ffbd00;
+}
+
+.front .buy-block .add-to-cart button[disabled]{
+  background: #fff6db;
+  border-color: #ffe495;
 }
 
 .front .buy-block.actions .action{

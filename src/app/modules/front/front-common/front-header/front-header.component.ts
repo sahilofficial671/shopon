@@ -3,6 +3,7 @@ import { User } from 'src/app/shared/models/user.model';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { CheckoutService } from 'src/app/core/services/checkout.service';
 
 @Component({
   selector: 'app-front-header',
@@ -11,26 +12,28 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class FrontHeaderComponent implements OnInit {
   customer:User;
+  totalCartItems:Number;
+  menus:Object[];
+  actions:Object[];
 
   constructor(private router: Router,
     private authService: AuthService,
-    private toastr: ToastrService
-  ){ }
+    private toastr: ToastrService,
+    public checkoutService: CheckoutService,
+  ){
+    this.totalCartItems = this.checkoutService.getCartData().length;
 
-  menus = [
-    {"url":"/electronics", "name": "Electronics", "children": [
-        {"url":"/mobiles", "name": "Mobile"},
-      ]
-    },
-    {"url":"/furnitures", "name": "Furnitures", "children": [
-        {"url":"/beds", "name": "Bed"},
-      ]
-    },
-  ];
-
-  actions = [
-    {"url":"/cart", "name": "Cart", "icon": "shopping_basket", "children": null},
-  ];
+    this.menus = [
+      {"url":"/electronics", "name": "Electronics", "children": [
+          {"url":"/mobiles", "name": "Mobile"},
+        ]
+      },
+      {"url":"/furnitures", "name": "Furnitures", "children": [
+          {"url":"/beds", "name": "Bed"},
+        ]
+      },
+    ];
+  }
 
   ngOnInit(): void {
     if(this.isLogged()){

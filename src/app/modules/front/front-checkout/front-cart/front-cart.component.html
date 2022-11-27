@@ -1,0 +1,33 @@
+<div class="container customer front-top">
+  <div class="container-fluid customer-container">
+
+      <div class="row">
+        <div class="col-sm-9 col-xs-12 offset-sm-2">
+          <div class="customer-content">
+            <div class="cart-container">
+              <mat-card class="card">
+                <mat-card-title class="card-header">Cart
+                  <div class="float-end">
+                    <button mat-raised-button color="warn" (click)="clearCart()">CLEAR</button>
+                  </div>
+                </mat-card-title>
+                <mat-card-content class="card-body">
+                  <span *ngIf="products.length == 0">
+                    No Products
+                  </span>
+                  <div class="carousel-items product-image-cards medium">
+                    <div class="product-card" *ngFor="let product of products">
+                      <app-front-product-card [product]="product"></app-front-product-card>
+                    </div>
+                  </div>
+
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+
+        </div>
+      </div>
+  </div>
+</div>
+
